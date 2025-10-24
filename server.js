@@ -7,6 +7,21 @@ const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require("method-override")
 
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.connection.on("connected", () => {
+  console.log(`Connected to MongoDB: ${mongoose.connection.name}.`);
+})
+
+
+
+
+
+
+
+
+
+
+const boardsCtrl = require("./controllers/boards")
 
 app.get("/", (req, res) => {
   res.send("Landing Page");
