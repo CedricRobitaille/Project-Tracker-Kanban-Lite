@@ -2,4 +2,9 @@
 
 <main>
   <h1>Kanban Board</h1>
+  <a href="/kanban/new">Create a new Board</a>
+  <% boardCollection.forEach(board => { %>
+    <a href="/kanban/<%= board._id %>/edit"><%= board.title %></a>
+  <% }) %>
+  
 </main>

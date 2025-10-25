@@ -6,14 +6,17 @@ const Board = require("../models/board.js")
 // GET
 // /
 const index = async (req, res) => {
-  res.send("Board Home");
+  const boardCollection = await Board.find();
+  res.render("kanban/index.ejs", { boardCollection });
 }
 
 // Kanban Inner board
 // GET
 // /:boardId"
 const show = async (req, res) => {
-  res.send("Board Inner");
+  const boardId = req.params.boardId
+  const board = await Board.findById(boardId)
+  res.render(`kanban/show.ejs`, { board });
 }
 
 // Form to create a new board
@@ -27,7 +30,10 @@ const showNewForm = async (req, res) => {
 // GET
 // /:boarId/edit
 const edit = async (req, res) => {
-  res.send("Edit Board Form")
+  const boardId = req.params.boardId;
+  const board = await Board.findById(boardId);
+  console.log(board)
+  res.render("kanban/edit.ejs", { board })
 }
 
 // Create new board
@@ -35,22 +41,23 @@ const edit = async (req, res) => {
 // "/"
 const create = async (req, res) => {
   const board = await Board.create(req.body);
-  console.log(board);
-  res.redirect("/kanban/:boardId");
+  res.redirect(`/kanban/${board._id}`);
 }
 
 // Edit board properties
 // PUT
 // "/:boardId"
 const update = async (req, res) => {
-  res.redirect("/kanban");
+  const boardId = req.params.boardId;
+  const board = await Board.findByIdAndUpdate(boardId, req.body)
+  res.redirect("/kanban/");
 }
 
 // Delete board
 // DELETE
 // "/:boardId"
 const del = async (req, res) => {
-  res.redirect("/kanban");
+  res.redirect("/kanban/");
 }
 
 

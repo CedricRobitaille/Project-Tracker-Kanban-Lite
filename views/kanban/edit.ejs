@@ -1,0 +1,10 @@
+<%- include("../partials/htmlHeader") %>
+
+<h1>Edit an existing inner board</h1>
+
+<form action="/kanban/<%= board.id %>?_method=put" method="POST">
+  <label for="title">Title</label>
+  <input type="text" id="title" name="title">
+
+  <button type="submit">Submit</button>
+</form>
