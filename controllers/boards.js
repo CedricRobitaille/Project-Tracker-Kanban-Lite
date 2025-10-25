@@ -57,6 +57,8 @@ const update = async (req, res) => {
 // DELETE
 // "/:boardId"
 const del = async (req, res) => {
+  const boardId = req.params.boardId;
+  const board = await Board.findByIdAndDelete(boardId)
   res.redirect("/kanban/");
 }
 
