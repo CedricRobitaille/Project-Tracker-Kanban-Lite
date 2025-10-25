@@ -20,17 +20,23 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")))
 
 // Boards Controller
+const authCtrl = require("./controllers/auth.js")
 const boardsCtrl = require("./controllers/boards.js")
 const tasksCtrl = require("./controllers/tasks.js")
 
 
 
 
-// Homepage
-app.get("/", (req, res) => {
-  // Session Authentication here
-  res.send("Landing Page");
-})
+
+// Auth
+app.get('/', authCtrl.index); // Landing Page
+app.get('/join', authCtrl.showNewForm); // Sign Up Page
+app.get('/login', authCtrl.showSigninForm); // Sign In Page
+app.get('/:userId', authCtrl.show); // Account Page
+app.post('/', authCtrl.create); // [POST] Creates user account
+app.put('/:userId', authCtrl.update); // [PUT] Edits user details
+app.delete('/:userId', authCtrl.del); // [DELETE] Removes user
+
 
 
 // Board Views
