@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = require("/models/user");
-const taskSchema = require("/models/task");
+
 
 const boardSchema = new mongoose.Schema({
   title: String,

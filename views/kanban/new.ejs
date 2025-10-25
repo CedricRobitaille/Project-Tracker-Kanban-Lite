@@ -1,0 +1,10 @@
+<%- include("../partials/htmlHeader") %>
+
+<h1>Create a new Board</h1>
+
+<form action="/kanban" method="POST">
+  <label for="title">Board Title</label>
+  <input type="text" id="title" name="title">
+
+  <button type="submit">Submit</button>
+</form>

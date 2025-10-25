@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const boardSchema = require("");
+
 
 const userSchema = new mongoose.Schema({
   name: String,
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     default: "user",
   },
   boards: [{
-    boardId: [boardSchema],
+    boardId: [String],
     name: String,
   }],
   createdAt: Date,

@@ -1,4 +1,6 @@
-
+const User = require("../models/user.js")
+const Task = require("../models/task.js")
+const Board = require("../models/board.js")
 
 // Kanban Root
 // GET
@@ -18,7 +20,7 @@ const show = async (req, res) => {
 // GET
 // /new
 const showNewForm = async (req, res) => {
-  res.send("New Board Form")
+  res.render("kanban/new.ejs")
 }
 
 // Form to edit an existing board
@@ -32,21 +34,23 @@ const edit = async (req, res) => {
 // POST
 // "/"
 const create = async (req, res) => {
-  res.redirect("/:boardId");
+  const board = await Board.create(req.body);
+  console.log(board);
+  res.redirect("/kanban/:boardId");
 }
 
 // Edit board properties
 // PUT
 // "/:boardId"
 const update = async (req, res) => {
-  res.redirect("/");
+  res.redirect("/kanban");
 }
 
 // Delete board
 // DELETE
 // "/:boardId"
 const del = async (req, res) => {
-  res.redirect("/");
+  res.redirect("/kanban");
 }
 
 
