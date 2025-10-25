@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, "public")))
 
 // Boards Controller
 const boardsCtrl = require("./controllers/boards.js")
+const tasksCtrl = require("./controllers/tasks.js")
 
 
 
@@ -31,21 +32,24 @@ app.get("/", (req, res) => {
   res.send("Landing Page");
 })
 
+
 // Board Views
-// kanban -> Board overview
-// kanban/new -> New inner board form
-// kanban/:boardId -> Board inner
-// kanban/:boardId/edit -> Board inner edit form
-app.get('/kanban', boardsCtrl.index);
-app.get('/kanban/new', boardsCtrl.showNewForm)
-app.get('/kanban/:boardId', boardsCtrl.show);
-app.post('/kanban', boardsCtrl.create);
-app.get('/kanban/:boardId/edit', boardsCtrl.edit);
-app.put('/kanban/:boardId', boardsCtrl.update);
-app.delete('/kanban/:boardId', boardsCtrl.del)
+app.get('/kanban', boardsCtrl.index); // [SHOW] Board overview
+app.get('/kanban/new', boardsCtrl.showNewForm); // [FORM] New inner board form
+app.get('/kanban/:boardId', boardsCtrl.show); // [SHOW] Board inner
+app.post('/kanban', boardsCtrl.create); // [POST] Create a new board
+app.get('/kanban/:boardId/edit', boardsCtrl.edit); // [FORM] Edit existing board
+app.put('/kanban/:boardId', boardsCtrl.update); // [PUT] Edit existing board
+app.delete('/kanban/:boardId', boardsCtrl.del); // [DEL] Delete existing board
 
 
 
+// Task Views
+app.get('/kanban/:boardId/new', tasksCtrl.showNewForm); // [FORM] New Task Form
+app.get('/kanban/:boardId/taskId', tasksCtrl.show); // [SHOW] Task Overview
+app.post('/kanban/:boardId/', tasksCtrl.create); // [POST] Create a new Task
+app.put('/kanban/:boardId/taskId', tasksCtrl.update); // [PUT] Edit a Task (Clicks Save)
+app.delete('/kanban/:boardId/taskId', tasksCtrl.del); // [DEL] Delete a Task
 
 
 
