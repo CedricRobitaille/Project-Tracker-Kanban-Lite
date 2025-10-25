@@ -4,12 +4,15 @@ const Board = require("../models/board.js");
 
 // Show Page
 const show = async (req, res) => {
-  res.send("Task Show Page");
+  const task = ""
+  const board = ""
+  res.render("tasks/index.ejs", { task, board });
 }
 
 // Form to create a new Task
 const showNewForm = async (req, res) => {
-  res.send("Task Edit Form");
+  const board = ""
+  res.render("tasks/new.ejs", { board });
 }
 
 // Create a new Task
