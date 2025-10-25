@@ -16,17 +16,30 @@ mongoose.connection.on("connected", () => {
 
 
 
+// Boards Controller
+const boardsCtrl = require("./controllers/boards.js")
 
 
 
 
-
-const boardsCtrl = require("./controllers/boards")
-
+// Homepage
 app.get("/", (req, res) => {
+  // Session Authentication here
   res.send("Landing Page");
 })
 
+// Board Views
+// kanban -> Board overview
+// kanban/new -> New inner board form
+// kanban/:boardId -> Board inner
+// kanban/:boardId/edit -> Board inner edit form
+app.get('/kanban', boardsCtrl.index);
+app.get('/kanban/new', boardsCtrl.showNewForm)
+app.get('/kanban/:boardId', boardsCtrl.show);
+app.post('/kanban', boardsCtrl.create);
+app.get('/kanban/:boardId/edit', boardsCtrl.edit);
+app.put('/kanban/:boardId', boardsCtrl.update);
+app.delete('/kanban/:boardId', boardsCtrl.del)
 
 
 
