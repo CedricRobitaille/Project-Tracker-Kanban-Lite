@@ -2,24 +2,33 @@ const mongoose = require("mongoose");
 
 
 const userSchema = new mongoose.Schema({
-  name: String,
-  passwordHash: String,
+  fullName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  nickName: {
+    type: String,
+    trim: true,
+  },
   email: {
     type: String,
+    required: true,
     unique: true,
-    index: true
+    trim: true,
   },
-  role: {
+  password: {
     type: String,
-    enum: ["user", "admin"],
-    default: "user",
+    required: true,
   },
-  boards: [{
-    boardId: [String],
-    name: String,
-  }],
-  createdAt: Date,
-})
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
+  },
+  profilePicture: String,
+  jobTitle: String,
+  phoneNumber: Number,
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 

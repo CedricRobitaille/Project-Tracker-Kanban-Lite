@@ -1,24 +1,42 @@
 const mongoose = require("mongoose");
 
+const sectionSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  color: String,
+  size: Number,
+}, { _id: false });
 
 const boardSchema = new mongoose.Schema({
-  title: String,
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  members: [{ 
-    userId: String,
-    role: {
-      type: String,
-      enum: ["user", "admin"],
-      default: "user",
-    },
-    ref: 'User'
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+    trim: true,
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   }],
-  columns: [{
-    title: String,
-    order: Number,
-  }],
-  createdAt: Date,
-})
+  inCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  section: [sectionSchema], // Call to create a new Section
+  color: String,
+  icon: String,
+}, { timestamps: true });
 
 const Board = mongoose.model("Board", boardSchema);
 
