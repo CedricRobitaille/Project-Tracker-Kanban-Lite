@@ -8,7 +8,7 @@ const sectionSchema = new mongoose.Schema({
   },
   color: String,
   size: Number,
-}, { _id: false });
+});
 
 const boardSchema = new mongoose.Schema({
   title: {
@@ -29,9 +29,9 @@ const boardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   }],
-  inCompleted: {
-    type: Boolean,
-    default: false,
+  progressCounter: {
+    type: Number,
+    default: 0,
   },
   section: [sectionSchema], // Call to create a new Section
   color: String,
