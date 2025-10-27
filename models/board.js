@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const boardSchema = new mongoose.Schema({
   title: String,
-  ownerId: String,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   members: [{ 
     userId: String,
     role: {
@@ -11,13 +11,9 @@ const boardSchema = new mongoose.Schema({
       enum: ["user", "admin"],
       default: "user",
     },
+    ref: 'User'
   }],
   columns: [{
-    title: String,
-    order: Number,
-  }],
-  tasks: [{
-    taskId: String,
     title: String,
     order: Number,
   }],
