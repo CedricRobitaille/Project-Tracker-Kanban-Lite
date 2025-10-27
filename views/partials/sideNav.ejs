@@ -10,16 +10,22 @@
       <ul>
         <% 
           const navLinks = [
-            { name: "Dashboard", icon: "", url: "" },
-            { name: "My Projects", icon: "", url: "" },
-            { name: "My Tasks", icon: "", url: "" },
-            { name: "Timeline", icon: "", url: "" },
+            { name: "Dashboard", icon: "/icons/20px-grey/grid.svg", url: "" },
+            { name: "My Projects", icon: "/icons/20px-grey/layout.svg", url: "" },
+            { name: "My Tasks", icon: "/icons/20px-grey/list.svg", url: "" },
+            { name: "Timeline", icon: "/icons/20px-grey/calendar.svg", url: "" },
           ];
           navLinks.forEach((nav) => {
         %>
           <li class="<%= currentPage === nav.name ?  "current-nav" : "" %>">
            <a href="<%= nav.url %>">
-             <img src="<%= nav.icon %>" alt="">
+            <%
+              let iconLink = nav.icon;
+              if (currentPage === nav.name) {
+                iconLink = iconLink.replace("grey", "white");
+              }
+            %>
+             <img src="<%= iconLink %>" alt="">
              <p><%= nav.name %></p>
             </a>
          </li>
@@ -57,13 +63,13 @@
   <ul id="nav-last">
     <li class="">
       <a href="">
-        <img src="" alt="">
+        <img src="/icons/20px-grey/settings.svg" alt="">
         <p>Settings</p>
       </a>
     </li>
     <li class="">
       <a href="">
-        <img src="" alt="">
+        <img src="/icons/20px-grey/log-out.svg" alt="">
         <p>Sign Out</p>
       </a>
     </li>

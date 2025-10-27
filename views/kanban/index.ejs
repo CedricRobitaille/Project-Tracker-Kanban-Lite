@@ -1,13 +1,24 @@
 <%- include("../partials/htmlHeader") %>
 <%- include("../partials/sideNav") %>
 <main>
+  <%- include("../partials/topNav") %>
   
+  <section id="main-view">
 
-  <h1>Kanban Board</h1>
-  <a href="/kanban/new">Create a new Board</a>
-  <% boardCollection.forEach(board => { %>
-    <a href="/kanban/<%= board._id %>"><%= board.title %></a>
-  <% }) %>
+    <%- include("../partials/dashboard/projects") %>
+    <%- include("../partials/dashboard/tasks") %>
+
+
+
+    <h1>Kanban Board</h1>
+    <a href="/kanban/new">Create a new Board</a>
+    <% boardCollection.forEach(board=> { %>
+      <a href="/kanban/<%= board._id %>">
+        <%= board.title %>
+      </a>
+      <% }) %>
+  </section>
+  
   
 
 </main>

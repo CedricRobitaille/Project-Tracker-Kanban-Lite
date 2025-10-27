@@ -1,0 +1,61 @@
+<section class="panel-level-1">
+
+  <div class="panel-header">
+    <div class="panel-header-title">
+      <img src="/icons/24px-white/layout.svg" alt="">
+      <h2>My Projects</h2>
+    </div>
+    <div class="btn-accent btn-small">
+      <p>Create a Board</p>
+      <img src="/icons/16px-white/folder-plus.svg" alt="">
+    </div>
+  </div>
+
+
+  <ul class="horizontal-list">
+
+  <% 
+  const boards = [
+    { title: "Event Planning", tasks: 5, inProgress: 2, color: "A681C2", icon: "/icons/projects/printer.svg" },
+    { title: "Social Media", tasks: 5, inProgress: 2, color: "C29581", icon: "/icons/projects/tablet.svg" },
+    { title: "Web Production", tasks: 5, inProgress: 2, color: "81A5C2", icon: "/icons/projects/github.svg" },
+    { title: "Content Writing", tasks: 5, inProgress: 2, color: "81C286", icon: "/icons/projects/pen-tool.svg" },
+    { title: "Podcasts", tasks: 5, inProgress: 2, color: "C57E95", icon: "/icons/projects/mic.svg" },
+  ]
+  // WHEN SCHEMA CONNECTED...
+  // - REMOVE BOARDS ABOVE
+  // - SET BOARDS.FOREACH TO THE RIGHT OBJ NAME
+  // - SET PROPER KEYS BELOW
+  boards.forEach(project => {
+  %>
+
+    <li class="panel-level-2 project-card">
+      <a class="project-card-header">
+        <img src="<%= project.icon %>" alt="">
+        <% const styleString=`background-color: #${project.color}40; border-color: #${project.color};`; %>
+        <div class="project-color" style="<%= styleString %>"></div>
+      </a>
+
+      <div class="project-card-content">
+        <h3><%= project.title %></h3>
+        <ul>
+          <li>
+            <p><%= project.tasks %></p>
+            <h5>Total Tasks</h5>
+            
+          </li>
+          <li>
+            <p><%= project.inProgress %></p>
+            <h5>In Progress</h5>
+            
+          </li>
+        </ul>
+      </div>
+    </li>
+  <% }); %>
+    <li class="panel-level-2 add-card">
+      <img src="/icons/projects/plus-circle.svg" alt="" class="new-icon">
+    </li>
+  </ul>
+
+</section>
