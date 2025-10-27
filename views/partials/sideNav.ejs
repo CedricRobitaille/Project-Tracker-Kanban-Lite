@@ -1,0 +1,72 @@
+<nav class="side-nav">
+  <a href="">
+    <h2 id="logo">FLōGRID</h2>
+  </a>
+  
+
+  <div id="nav-links">
+    <div id="nav-cluster">
+      <h5>Overview</h5>
+      <ul>
+        <% 
+          const navLinks = [
+            { name: "Dashboard", icon: "", url: "" },
+            { name: "My Projects", icon: "", url: "" },
+            { name: "My Tasks", icon: "", url: "" },
+            { name: "Timeline", icon: "", url: "" },
+          ];
+          navLinks.forEach((nav) => {
+        %>
+          <li class="<%= currentPage === nav.name ?  "current-nav" : "" %>">
+           <a href="<%= nav.url %>">
+             <img src="<%= nav.icon %>" alt="">
+             <p><%= nav.name %></p>
+            </a>
+         </li>
+        <% }); %>
+      </ul>
+    </div>
+
+    <div id="nav-cluster">
+      <h5>Projects</h5>
+      <ul>
+        <% 
+          const boads = [
+            { name: "Event Planning", color: "A681C2", url: "" },
+            { name: "Social Media", color: "C29581", url: "" },
+            { name: "Web Production", color: "81A5C2", url: "" },
+            { name: "Content Writing", color: "81C286", url: "" },
+          ];
+          boads.forEach((board)=> {
+        %>
+          <li class="">
+            <a href="<%= board.url %>">
+              <div 
+                class="nav-project" 
+                <% let styleString = `background-color: #${board.color}40; border-color: #${board.color};`; %>
+                style="<%= styleString %>">
+              </div>
+              <p><%= board.name %></p>
+            </a>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+
+  <ul id="nav-last">
+    <li class="">
+      <a href="">
+        <img src="" alt="">
+        <p>Settings</p>
+      </a>
+    </li>
+    <li class="">
+      <a href="">
+        <img src="" alt="">
+        <p>Sign Out</p>
+      </a>
+    </li>
+  </ul>
+
+</nav>

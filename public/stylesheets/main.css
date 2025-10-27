@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root {
+  /* Root Colors */
+  --white: #F6F9FA;
+  --grey: #87A4B7;
+  --dark-grey: #5D7683;
+  --dark: #191D21;
+
+  /* Level 1 */
+  --dark-1: #1E242A;
+  --dark-1-border: #293541;
+
+  /* Level 2 */
+  --dark-2: #242D36;
+  --dark-2-border: #324353;
+
+  /* Accent Colors */
+  --accent-blue: #00697C;
+  --accent-light-blue: #80c4df;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--dark);
+  
+}
+
+body {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: auto 1fr;
+  height: calc(100vh);
+  width: calc(100vw);
+}
+
+main {
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, input, button {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: var(--white);
+  text-decoration: none;
+}
+
+ul, ol, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+h5 {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: .75rem;
+  color: var(--dark-grey);
+}
+
+
+
+
+
+
+/* NAVIGATION */
+.side-nav {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: calc(100vh - 2rem);
+  width: 15rem;
+  gap: .75rem
+}
+
+#logo {
+  padding: .5rem 0;
+  color: var(--accent-light-blue);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  transition: .25s;
+}
+#logo:hover {
+  color: var(--white);
+}
+
+#nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+#nav-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+nav li {
+  border-radius: 4px;
+  transition: .125s
+}
+
+nav li:hover {
+  background-color: var(--dark-1);
+}
+
+nav li a {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  text-decoration: none;
+  padding: .5rem .75rem;
+  align-items: center;
+}
+
+nav li a img {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+nav li a p {
+  color: var(--grey);
+  letter-spacing: .75px
+}
+
+.nav-project {
+  height: 1rem;
+  width: 1rem;
+
+  border: 2px solid;
+  border-radius: 4px;
+}
+
+#nav-last {
+  padding-top: .5rem;
+  border-top: 2px solid var(--dark-1-border);
+}
+
+#nav-last a p {
+  color: var(--dark-grey);
+}

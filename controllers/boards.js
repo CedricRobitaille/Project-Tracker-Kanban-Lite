@@ -7,7 +7,10 @@ const Board = require("../models/board.js")
 // /
 const index = async (req, res) => {
   const boardCollection = await Board.find();
-  res.render("kanban/index.ejs", { boardCollection });
+  res.render("kanban/index.ejs", { 
+    boardCollection, 
+    currentPage: "Dashboard",
+  });
 }
 
 // Kanban Inner board

@@ -1,10 +1,13 @@
 <%- include("../partials/htmlHeader") %>
-
+<%- include("../partials/sideNav") %>
 <main>
+  
+
   <h1>Kanban Board</h1>
   <a href="/kanban/new">Create a new Board</a>
   <% boardCollection.forEach(board => { %>
     <a href="/kanban/<%= board._id %>"><%= board.title %></a>
   <% }) %>
   
+
 </main>
