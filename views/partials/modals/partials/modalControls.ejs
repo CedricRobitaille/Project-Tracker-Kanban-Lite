@@ -1,6 +1,6 @@
 <div class="modal-controls">
 
-  <button class="btn-light btn-small">
+  <button class="btn-light btn-small" type="button" id="close" onclick="clickEvent(event)">
     <p><%= btnText1 %></p>
     <% if (btnIcon1 != null) { %>
       <img src="<%= btnIcon1 %>" alt="">
@@ -14,5 +14,21 @@
       <img src="<%= btnIcon2 %>" alt="">
     <% } %>
   </button>
+
+
+  <script>
+    function clickEvent(event) {
+      const action = event.currentTarget.id;
+      if (action === "close") {
+        const modals = document.querySelectorAll("#modal");
+        modals.forEach(modal => {
+          modal.classList.toggle("modal-hidden");
+        })
+      } else {
+
+      }
+    }
+  </script>
+
 
 </div>

@@ -5,7 +5,7 @@
       <img src="/icons/24px-white/layout.svg" alt="">
       <h2>My Projects</h2>
     </div>
-    <a href="/kanban/new" class="btn-accent btn-small">
+    <button type="button" class="btn-accent btn-small" onclick="showModal()" >
       <p>Create a Board</p>
       <img src="/icons/16px-white/folder-plus.svg" alt="">
     </a>
@@ -53,11 +53,17 @@
       </a>
     </li>
   <% }); %>
-    <li class="panel-level-2 add-card">
-      <a href="/kanban/new">
+    <li>
+      <button type="button" onclick="showModal()" class="panel-level-2 add-card">
         <img src="/icons/projects/plus-circle.svg" alt="" class="new-icon">
-      </a>
+      </button>
     </li>
   </ul>
 
+  <script>
+    function showModal() {
+      document.getElementById("modal");
+      modal.classList.toggle("modal-hidden")
+    }
+  </script>
 </section>
