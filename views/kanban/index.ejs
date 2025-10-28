@@ -2,23 +2,17 @@
 <%- include("../partials/sideNav") %>
 <main>
   <%- include("../partials/topNav") %>
+  <div id="view-split">
+    <section id="main-view">
+      <%- include("../partials/dashboard/projects") %> 
+      <%- include("../partials/dashboard/tasks") %>
+    </section>
+    
+    <%- include("../partials/dashboard/newProject") %>
+    
+  </div>
   
-  <section id="main-view">
-
-    <%- include("../partials/dashboard/projects") %>
-    <%- include("../partials/dashboard/tasks") %>
-
-
-
-    <h1>Kanban Board</h1>
-    <a href="/kanban/new">Create a new Board</a>
-    <% boardCollection.forEach(board=> { %>
-      <a href="/kanban/<%= board._id %>">
-        <%= board.title %>
-      </a>
-      <% }) %>
-  </section>
   
   
 
-</main>
+</main

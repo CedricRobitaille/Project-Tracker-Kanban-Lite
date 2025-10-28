@@ -1,0 +1,63 @@
+<section class="panel-level-1 fill-height">
+
+  <div class="panel-header">
+    <div class="panel-header-title">
+      <img src="/icons/24px-white/list.svg" alt="">
+      <h2>My Tasks</h2>
+    </div>
+    <div class="btn-ghost">
+      <p>Priority</p>
+      <img src="/icons/16px-grey/arrow-down.svg" alt="">
+    </div>
+  </div>
+
+
+  <% 
+    const tableColumns = [ "color", "title", "description", "collection", "due Date" ];
+    const tasks = [
+      { color: "A681C2", title: "Create booth backdrop for NRMCA", description: "A short and descriptive paragraph for the given task", collection: "Event Planning", dueDate: "Jan 22nd" },
+      { color: "A681C2", title: "Create booth backdrop for NRMCA", description: "A short and descriptive paragraph for the given task", collection: "Event Planning", dueDate: "Jan 22nd" },
+      { color: "A681C2", title: "Create booth backdrop for NRMCA", description: "A short and descriptive paragraph for the given task", collection: "Event Planning", dueDate: "Jan 22nd" },
+      { color: "A681C2", title: "Create booth backdrop for NRMCA", description: "A short and descriptive paragraph for the given task", collection: "Event Planning", dueDate: "Jan 22nd" },
+      { color: "A681C2", title: "Create booth backdrop for NRMCA", description: "A short and descriptive paragraph for the given task", collection: "Event Planning", dueDate: "Jan 22nd" },
+    ]
+  %>
+  <div class="task-table">
+
+    <div class="task-table-row">
+      <% tableColumns.forEach(header => { %>
+      <% if (header === "color") { %>
+        <h5>&nbsp;</h5>
+      <% } else { %>
+        <h5><%= header %></h5>
+      <% } %>
+    <% }) %>
+    </div>
+
+    <ul>
+      <% tasks.forEach(task => { %>
+        <li>
+          <a href="" class="task-table-row table-row-link">
+          <% tableColumns.forEach(col => { %>
+            <% col = col.replace(" ", "") %>
+            <% if (col === "color") { %>
+              <div>
+                <div class="collection-color" <% let styleString=`background-color: #${task.color}40; border-color: #${task.color};`; %>
+                  style="<%= styleString %>">
+                </div>
+              </div>
+            <% } else if (col === "title") { %>
+              <p class="table-strong"><%= task[col] %></p>
+            <% } else { %>
+              <p class="table-weak"><%= task[col] %></p>
+            <% } %>
+          <% }) %>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+    
+
+  </div>
+
+</section>

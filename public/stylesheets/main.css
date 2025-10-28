@@ -3,6 +3,7 @@
 :root {
   /* Root Colors */
   --white: #F6F9FA;
+  --light-grey: #a0b9ca;
   --grey: #87A4B7;
   --dark-grey: #5D7683;
   --dark: #191D21;
@@ -43,13 +44,17 @@ body {
   grid-template-columns: auto 1fr;
   height: calc(100vh);
   width: calc(100vw);
+  overflow: none;
 }
 
 main {
   overflow: hidden;
+  display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, input, button {
+h1, h2, h3, h4, h5, h6, p, a, input, button, table, tr, td, thead, tbody {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -72,10 +77,17 @@ h5 {
   color: var(--dark-grey);
 }
 
-main {
+#view-split {
+  position: relative;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr auto;
+}
+
+#main-view {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 
@@ -123,6 +135,19 @@ main {
   background-color: var(--accent-dark-blue);
 }
 
+.btn-ghost {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+  padding: .5rem .75rem .6rem;
+}
+
+.btn-ghost p {
+  color: var(--light-grey);
+  font-size: .85rem;
+}
 
 
 
@@ -295,6 +320,11 @@ nav li a p {
 
 
 
+
+
+/* Dashboard - My projects */
+
+
 .horizontal-list {
   display: flex;
   flex-direction: row;
@@ -303,16 +333,19 @@ nav li a p {
 }
 
 .project-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   max-width: 300px;
   min-width: 250px;
   width: 100%;
 
-  padding: 1.5rem 1.125rem;
+  padding: 1.25rem 1.25rem;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.project-card a {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .project-card:hover {
@@ -376,3 +409,100 @@ gap: .25rem;
   width: 1.5rem;
 }
 
+
+
+/* Dashboard - My Tasks */
+
+.fill-height {
+  height: 100%;
+}
+
+.collection-color {
+  height: 1.25rem;
+  width: 1.25rem;
+  border: 2px solid;
+  border-radius: 4px;
+}
+
+.task-table {
+  
+}
+
+.task-table-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 15rem 1fr 12.5rem auto;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+}
+
+.table-row-link:hover {
+  background-color: var(--dark-2);
+  border-radius: 6px;
+}
+
+.task-table-col {
+  display: flex;
+  flex-direction: column;
+  height: 3rem;
+  align-items: start;
+}
+
+.task-table-row > * {
+  padding: .5rem;
+  min-width: 2rem;
+}
+
+.task-table h5 {
+  padding: .5rem .5rem 1rem;
+  margin-bottom: .5rem;
+  border-bottom: 2px solid var(--dark-2-border);
+}
+
+.task-table-row p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-strong {
+  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.table-weak {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--grey);
+}
+
+
+
+
+
+/* MODAL */
+
+#modal {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 34rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding: 1rem;
+  background-color: var(--dark-1);
+  border: 1.5px solid var(--dark-1-border);
+  border-radius: 8px;
+  transition: .5s;
+}
+
+.modal-hidden {
+  right: -34rem;
+}
