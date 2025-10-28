@@ -1,0 +1,52 @@
+<form id="modal" action="/kanban" method="POST">
+  <!-- Controls -->
+  <%- 
+    include("../../partials/modals/partials/modalControls",
+    { btnText1: "Cancel", btnIcon1: null, btnText2: "Create Project", btnIcon2: "/icons/20px-white/plus.svg" })
+  %>
+
+  <!-- Main Content -->
+   <fieldset class="modal-section">
+    <!-- Intro -->
+    <%- 
+      include("../../partials/modals/partials/sectionIntro", { title: "Board Details" ,
+      description: "Start with a board to manage projects and deliverables.\nEasily create, review, update, and delete tasks!"
+    }) %>
+
+    <div class="input-flex">
+      <label for="title">Project Title</label>
+      <input type="text" name="title" id="title" placeholder="Project Title" class="input-large">
+    </div>
+    
+    <div class="input-flex">
+      <label for="description">Description</label>
+      <textarea name="description" id="description" placeholder="A short description to add clarity and aid team members follow the project properly!"></textarea>
+    </div>
+    
+    <div class="form-split">
+
+      <div class="input-flex">
+       <label for="color">Color</label>
+       <input name="color" id="color" placeholder="Convert to Colour Selector">
+      </div>
+
+      <div class="input-flex">
+        <label for="icon">Icon</label>
+        <input name="icon" id="icon" placeholder="Covert to Dropdown">
+      </div>
+
+    </div>
+
+    <div class="input-flex">
+      <label for="section">Stages</label>
+      <input name="section[0][title]" id="section" value="Item 1">
+      <input name="section[1][title]" id="section" value="Item 2">
+      <input name="section[2][title]" id="section" value="Item 3">
+    </div>
+
+   </fieldset>
+  
+
+  
+
+  </form>
