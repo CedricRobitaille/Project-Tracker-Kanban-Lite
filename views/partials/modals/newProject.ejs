@@ -1,3 +1,5 @@
+
+
 <form id="modal" action="/kanban" method="POST" class="modal-hidden">
   <!-- Controls -->
   <%- 
@@ -30,9 +32,23 @@
        <input name="color" id="color" placeholder="Convert to Colour Selector">
       </div>
 
+      
       <div class="input-flex">
-        <label for="icon">Icon</label>
-        <input name="icon" id="icon" placeholder="Covert to Dropdown">
+        <label for="icon">Icon<span><img src="/icons/16px-grey/activity.svg" alt="" id="icon-label"></span></label>
+        <select name="icon" id="icon" placeholder="Covert to Dropdown" onchange="changeIcon()">
+          <% icons.forEach((icon, index) => { %>
+            <% const iconText = icon.replace(".svg", "").replaceAll("-", " ") %>
+            <option value="/icons/projects/<%= icon %>"><%= iconText %></option>
+          <% }) %>
+        </select>
+
+        <script>
+          const input = document.getElementById("icon");
+          const image = document.getElementById("icon-label");
+          function changeIcon() {
+            image.setAttribute("src", input.value.replace("projects", "16px-grey"));
+          }
+        </script>
       </div>
 
     </div>

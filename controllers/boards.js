@@ -1,15 +1,18 @@
 const User = require("../models/user.js")
 const Task = require("../models/task.js")
 const Board = require("../models/board.js")
+const fs = require("fs");
 
 // Kanban Root
 // GET
 // /
+
 const index = async (req, res) => {
   const boardCollection = await Board.find();
   res.render("kanban/index.ejs", { 
     boardCollection, 
     currentPage: "Dashboard",
+    icons: fs.readdirSync("public/icons/16px-grey"),
   });
 }
 
