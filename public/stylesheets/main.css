@@ -247,7 +247,7 @@ textarea {
   gap: 3rem;
 }
 
-#nav-cluster {
+.nav-cluster {
   display: flex;
   flex-direction: column;
   gap: .75rem;

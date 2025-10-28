@@ -12,6 +12,7 @@ const index = async (req, res) => {
   res.render("kanban/index.ejs", { 
     boardCollection, 
     currentPage: "Dashboard",
+    pageIcon: "/icons/24px-grey/grid.svg",
     icons: fs.readdirSync("public/icons/16px-grey"),
   });
 }
@@ -21,8 +22,14 @@ const index = async (req, res) => {
 // /:boardId"
 const show = async (req, res) => {
   const boardId = req.params.boardId
+  const boardCollection = await Board.find();
   const board = await Board.findById(boardId)
-  res.render(`kanban/show.ejs`, { board });
+  res.render(`kanban/show.ejs`, { 
+    boardCollection,
+    board,
+    currentPage: board.title,
+    pageIcon: board.icon,
+  });
 }
 
 // Form to create a new board

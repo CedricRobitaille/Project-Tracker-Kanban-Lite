@@ -5,13 +5,21 @@
   
 
   <div id="nav-links">
-    <div id="nav-cluster">
+    <div class="nav-cluster">
       <h5>Overview</h5>
       <ul>
         <% 
+          let projectLink = ""
+          if (typeof board !== "undefined") {
+            projectLink = `/kanban/${board._id}`;
+          } else if (boardCollection.length >= 1) {
+            projectLink = `/kanban/${boardCollection[0]._id}`;
+          } else {
+            projectLink = "/kanban";
+          }
           const navLinks = [
-            { name: "Dashboard", icon: "/icons/20px-grey/grid.svg", url: "" },
-            { name: "My Projects", icon: "/icons/20px-grey/layout.svg", url: "" },
+            { name: "Dashboard", icon: "/icons/20px-grey/grid.svg", url: "/kanban" },
+            { name: "My Projects", icon: "/icons/20px-grey/layout.svg", url: projectLink },
             { name: "My Tasks", icon: "/icons/20px-grey/list.svg", url: "" },
             { name: "Timeline", icon: "/icons/20px-grey/calendar.svg", url: "" },
           ];
@@ -25,34 +33,26 @@
                 iconLink = iconLink.replace("grey", "white");
               }
             %>
-             <img src="<%= iconLink %>" alt="">
-             <p><%= nav.name %></p>
-            </a>
-         </li>
-        <% }); %>
+            <img src="<%= iconLink %>" alt="">
+            <p><%= nav.name %></p>
+          </a>
+        </li>
+      <% }); %>
       </ul>
     </div>
 
-    <div id="nav-cluster">
+    <div class="nav-cluster">
       <h5>Projects</h5>
       <ul>
-        <% 
-          const boads = [
-            { name: "Event Planning", color: "A681C2", url: "" },
-            { name: "Social Media", color: "C29581", url: "" },
-            { name: "Web Production", color: "81A5C2", url: "" },
-            { name: "Content Writing", color: "81C286", url: "" },
-          ];
-          boads.forEach((board)=> {
-        %>
+        <% boardCollection.forEach((project)=> { %>
           <li class="">
-            <a href="<%= board.url %>">
+            <a href="/kanban/<%= project._id %>">
               <div 
                 class="nav-project" 
-                <% let styleString = `background-color: #${board.color}40; border-color: #${board.color};`; %>
+                <% let styleString = `background-color: ${project.color}40; border-color: ${project.color};`; %>
                 style="<%= styleString %>">
               </div>
-              <p><%= board.name %></p>
+              <p><%= project.title %></p>
             </a>
           </li>
         <% }); %>

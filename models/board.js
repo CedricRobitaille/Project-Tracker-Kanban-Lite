@@ -6,8 +6,14 @@ const sectionSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  color: String,
-  size: Number,
+  size: {
+    type: Number,
+    default: 0
+  },
+  color: {
+    type: String,
+    default: "#A681C2",
+  },
 });
 
 const boardSchema = new mongoose.Schema({

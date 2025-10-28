@@ -1,16 +1,6 @@
 <div id="top-nav">
   <div class="current-page">
-    <% 
-      let iconLink = "" 
-      if (currentPage === "Dashboard") {
-        iconLink = "/icons/24px-grey/grid.svg";
-      } else if (currentPage === "Timeline") {
-        iconLink = "/icons/24px-grey/calendar.svg";
-      } else {
-
-      }
-    %>
-    <img src="<%= iconLink %>" alt="">
+    <img src="<%= pageIcon %>" alt="">
     <h1><%= currentPage %></h1>
   </div>
   <div class="btn-light">
