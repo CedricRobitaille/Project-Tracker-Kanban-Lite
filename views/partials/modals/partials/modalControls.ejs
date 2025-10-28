@@ -20,10 +20,8 @@
     function clickEvent(event) {
       const action = event.currentTarget.id;
       if (action === "close") {
-        const modals = document.querySelectorAll("#modal");
-        modals.forEach(modal => {
-          modal.classList.toggle("modal-hidden");
-        })
+        const modal = event.currentTarget.parentNode.parentNode;
+        modal.classList.toggle("modal-hidden");
       } else {
 
       }

@@ -3,6 +3,9 @@
     <img src="<%= pageIcon %>" alt="">
     <h1><%= currentPage %></h1>
   </div>
+  <% if (currentPage !=="Dashboard" && currentPage !=="Timeline" ) { %>
+    <button type="button" class="btn-ghost"><img src="/icons/24px-grey/menu.svg" alt=""></button>
+    <% } %>
   <div class="btn-light">
     <img src="/icons/20px-white/user.svg" alt="">
     <p>My Account</p>

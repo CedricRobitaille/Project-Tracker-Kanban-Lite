@@ -1,0 +1,46 @@
+<section id="kanban">
+
+  <% board.section.forEach((collection, index) => { %>
+    <div class="kanban-collection panel-level-1">
+      <div class="kanban-header">
+        <h4 class="kanban-title"><%= collection.title %></h4>
+        <p class="collection-size"><%= collection.size %></p>
+        <button type="button" class="btn-ghost"><img src="/icons/20px-grey/more-horizontal.svg" alt=""></button>
+      </div>
+
+      <div class="collection-color" style="background-color: <%= collection.color %>"></div>
+      
+      <div class="kanban-list">
+
+        <button type="button" class="panel-level-2 task-card" onclick="newTask('<%= collection.title %>')"><img src="/icons/24px-grey/plus-circle.svg" alt=""></button>
+        
+        <% taskCollection[index].forEach(task=> { %>
+          <div class="panel-level-2 task-card">
+        
+          </div>
+        <% }) %>
+
+      </div>
+      
+    </div>
+  <% }) %>
+
+  <script>
+    function newTask(col) {
+      console.log(col)
+      const modal = document.getElementById("newTask");
+      modal.classList.remove("modal-hidden");
+      modal.setAttribute("collection", col);
+    }
+  </script>
+
+  <!-- <script>
+    // Enable horizontal scrolling on mWheel
+    const kanbanBoard = document.getElementById('kanban');
+    kanbanBoard.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      kanbanBoard.scrollLeft += event.deltaY;
+    });
+  </script> -->
+
+</section>

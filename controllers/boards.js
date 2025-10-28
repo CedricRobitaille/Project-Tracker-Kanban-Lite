@@ -23,10 +23,26 @@ const index = async (req, res) => {
 const show = async (req, res) => {
   const boardId = req.params.boardId
   const boardCollection = await Board.find();
-  const board = await Board.findById(boardId)
+  const board = await Board.findById(boardId);
+
+  const taskCollection = [];
+  const tasksFound = await Task.find({ board: board._id });
+
+  // Function to order the tasks into their parent collection
+  board.section.forEach(section => {
+    const orderedList = []
+    tasksFound.forEach(task => {
+      if (task.title === section.title) {
+        orderedList.push(task);
+      }
+    });
+    taskCollection.push(orderedList)
+  })
+  
   res.render(`kanban/show.ejs`, { 
     boardCollection,
     board,
+    taskCollection,
     currentPage: board.title,
     pageIcon: board.icon,
   });
