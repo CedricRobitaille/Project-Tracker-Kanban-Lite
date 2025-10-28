@@ -1,11 +1,23 @@
 <div class="modal-controls">
 
-  <button class="btn-light btn-small" type="button" id="close" onclick="clickEvent(event)">
-    <p><%= btnText1 %></p>
-    <% if (btnIcon1 != null) { %>
-      <img src="<%= btnIcon1 %>" alt="">
-    <% } %>
-  </button>
+  <% if (btnText1 === "Close") {%>
+    <!-- Task Edit Modal -->
+    <a class="btn-light btn-small" href="/kanban/<%= board._id %>">
+      <p><%= btnText1 %></p>
+      <% if (btnIcon1 !=null) { %>
+        <img src="<%= btnIcon1 %>" alt="">
+      <% } %>
+    </a>
+  <% } else { %>
+    <!-- Stanard Modals -->
+    <button class="btn-light btn-small" type="button" id="close" onclick="clickEvent(event)">
+      <p><%= btnText1 %></p>
+      <% if (btnIcon1 != null) { %>
+        <img src="<%= btnIcon1 %>" alt="">
+      <% } %>
+    </button>
+  <% } %>
+  
 
 
   <button class="btn-accent btn-small" type="submit">
@@ -20,12 +32,13 @@
     function clickEvent(event) {
       const action = event.currentTarget.id;
       if (action === "close") {
-        const modal = event.currentTarget.parentNode.parentNode;
+        const modal = document.querySelector(".modal-element")
         modal.classList.toggle("modal-hidden");
       } else {
 
       }
     }
+    
   </script>
 
 

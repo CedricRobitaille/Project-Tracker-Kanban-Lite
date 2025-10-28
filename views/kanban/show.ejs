@@ -4,11 +4,8 @@
 
 <main>
   <%- include("../partials/topNav") %>
+  <div id="view-split">
   <%- include("../partials/dashboard/kanban.ejs") %>
-  
-  <%- include("../partials/modals/newTask.ejs") %>
-  
-<form action="/kanban/<%= board._id %>?_method=delete" method="POST">
-  <button type="submit">Delete this Board</button>
-</form>
+    <%- include("../partials/modals/editProject.ejs") %>
+  </div>
 </main>

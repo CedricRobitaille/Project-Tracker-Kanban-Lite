@@ -1,0 +1,115 @@
+<div id="editProject" class="modal-hidden modal-element">
+
+<form action="/kanban/<%= board._id %>?_method=PUT" method="POST">
+
+  <!-- Controls -->
+  <%- include("../../partials/modals/partials/modalControls", { btnText1: "Cancel" , btnIcon1: null,
+    btnText2: "Save Changes" , btnIcon2: "/icons/20px-white/save.svg" }) %>
+
+
+    <!-- Main Content -->
+    <fieldset class="modal-section">
+      <!-- Intro -->
+      <%- include("../../partials/modals/partials/sectionIntro", { title: "Board Details" ,
+        description: "Start with a board to manage projects and deliverables.\nEasily create, review, update, and delete tasks!"
+        }) %>
+
+        <div class="input-flex">
+          <label for="title">Project Title</label>
+          <input type="text" name="title" id="title" value="<%= board.title %>" class="input-large" required>
+        </div>
+
+        <div class="input-flex">
+          <label for="description">Description</label>
+          <textarea name="description" id="description"><%= board.description %></textarea>
+        </div>
+
+        <div class="form-split">
+
+          <div class="input-flex">
+            <label for="color">Color</label>
+            <input type="color" name="color" id="color" value="<%= board.color %>">
+          </div>
+
+
+          <div class="input-flex">
+            <% const iconShow = board.icon.replace("projects", "16px-grey") %>
+            <label for="icon">Icon<span><img src="<%= iconShow %>" alt="" id="icon-label"></span></label>
+            <select name="icon" id="icon" placeholder="Covert to Dropdown" onchange="changeIcon()">
+              <% const currentIcon = board.icon.replace("/icons/projects/", "" ).replaceAll("-", " " ).replace(".svg", "") %>
+              <option value="<%= board.icon %>"><%= currentIcon %></option>
+              <% icons.forEach((icon, index)=> { %>
+                <% const iconText=icon.replace(".svg", "" ).replaceAll("-", " " ) %>
+                  <option value="/icons/projects/<%= icon %>">
+                    <%= iconText %>
+                  </option>
+                  <% }) %>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="input-flex">
+          <div class="input-flex" id="stages-collection">
+            <label for="section1">Stages</label>
+            <% board.section.forEach((section, index) => { %>
+              <input name="section[<%= index %>][title]" id="section<%= index %>" value="<%= section.title %>" inputnum="0">
+            <% }) %>
+          </div>
+
+          <div>
+            <button type="button" class="btn-ghost btn-small" onclick="incrementStage(1)">
+              <p class="centered">Add a Stage</p>
+            </button>
+            <button type="button" class="btn-ghost btn-small" onclick="incrementStage(-1)">
+              <p class="centered">Remove a Stage</p>
+            </button>
+          </div>
+
+        </div>
+
+    </fieldset>
+
+
+
+
+    <script>
+      const input = document.getElementById("icon");
+      const image = document.getElementById("icon-label");
+
+      function changeIcon() {
+        image.setAttribute("src", input.value.replace("projects", "16px-grey"));
+      }
+
+      let sectionQty = 2;
+      const stagesCollection = document.getElementById("stages-collection");
+
+      function incrementStage(val) {
+        if (val === 1) {  // Add an Input
+          sectionQty++;
+          const newInput = document.createElement("input");
+          newInput.setAttribute("name", `section[${sectionQty}][title]`);
+          newInput.id = `section${sectionQty}`;
+          newInput.setAttribute("inputnum", sectionQty);
+
+          stagesCollection.appendChild(newInput);
+        }
+        if (val === -1) { // Remove an Input
+          if (sectionQty > 0) { // Keep at least 1
+            const inputs = document.querySelectorAll("input[inputnum]");
+            const lastInput = Array.from(inputs).find(input => input.getAttribute("inputnum") == sectionQty);
+            lastInput.remove();
+            sectionQty--;
+          }
+        }
+      }
+
+    </script>
+
+</form>
+
+<form action="/kanban/<%= board._id %>?_method=DELETE" method="POST" class="delete-btn">
+  <button type="submit" class="btn-accent"><p class="btn-center">Delete Project</p></button>
+</form>
+
+</div>

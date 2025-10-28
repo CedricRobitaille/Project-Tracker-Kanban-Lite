@@ -12,27 +12,20 @@
       
       <div class="kanban-list">
 
-        <button type="button" class="panel-level-2 task-card" onclick="newTask('<%= collection.title %>')"><img src="/icons/24px-grey/plus-circle.svg" alt=""></button>
-        
+        <a href="/kanban/<%= board._id %>/new" class="panel-level-2 task-card">
+          <img src="/icons/24px-grey/plus-circle.svg" alt="">
+        </a>
+
         <% taskCollection[index].forEach(task=> { %>
-          <div class="panel-level-2 task-card">
+          <a href="/kanban/<%= board._id %>/new" class="panel-level-2 task-card">
         
-          </div>
+          </a>
         <% }) %>
 
       </div>
       
     </div>
   <% }) %>
-
-  <script>
-    function newTask(col) {
-      console.log(col)
-      const modal = document.getElementById("newTask");
-      modal.classList.remove("modal-hidden");
-      modal.setAttribute("collection", col);
-    }
-  </script>
 
   <!-- <script>
     // Enable horizontal scrolling on mWheel

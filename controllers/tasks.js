@@ -11,8 +11,31 @@ const show = async (req, res) => {
 
 // Form to create a new Task
 const showNewForm = async (req, res) => {
-  const board = ""
-  res.render("tasks/new.ejs", { board });
+  const boardId = req.params.boardId
+  const boardCollection = await Board.find();
+  const board = await Board.findById(boardId);
+
+  const taskCollection = [];
+  const tasksFound = await Task.find({ board: board._id });
+
+  // Function to order the tasks into their parent collection
+  board.section.forEach(section => {
+    const orderedList = []
+    tasksFound.forEach(task => {
+      if (task.title === section.title) {
+        orderedList.push(task);
+      }
+    });
+    taskCollection.push(orderedList)
+  })
+
+  res.render("tasks/new.ejs", { 
+    boardCollection,
+    board,
+    taskCollection,
+    currentPage: board.title,
+    pageIcon: board.icon
+   });
 }
 
 // Create a new Task

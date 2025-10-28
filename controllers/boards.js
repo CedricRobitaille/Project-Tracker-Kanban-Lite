@@ -45,6 +45,7 @@ const show = async (req, res) => {
     taskCollection,
     currentPage: board.title,
     pageIcon: board.icon,
+    icons: fs.readdirSync("public/icons/16px-grey"),
   });
 }
 
@@ -79,7 +80,8 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   const boardId = req.params.boardId;
   const board = await Board.findByIdAndUpdate(boardId, req.body)
-  res.redirect("/kanban/");
+  console.log("Changes saved to:", board)
+  res.redirect(`/kanban/${boardId}`);
 }
 
 // Delete board
