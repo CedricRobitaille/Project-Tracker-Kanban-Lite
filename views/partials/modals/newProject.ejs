@@ -17,7 +17,7 @@
 
     <div class="input-flex">
       <label for="title">Project Title</label>
-      <input type="text" name="title" id="title" placeholder="Project Title" class="input-large">
+      <input type="text" name="title" id="title" placeholder="Project Title" class="input-large" required>
     </div>
     
     <div class="input-flex">
@@ -29,7 +29,7 @@
 
       <div class="input-flex">
        <label for="color">Color</label>
-       <input name="color" id="color" placeholder="Convert to Colour Selector">
+       <input type="color" name="color" id="color" value="#A681C2">
       </div>
 
       
@@ -41,28 +41,59 @@
             <option value="/icons/projects/<%= icon %>"><%= iconText %></option>
           <% }) %>
         </select>
-
-        <script>
-          const input = document.getElementById("icon");
-          const image = document.getElementById("icon-label");
-          function changeIcon() {
-            image.setAttribute("src", input.value.replace("projects", "16px-grey"));
-          }
-        </script>
       </div>
 
     </div>
 
     <div class="input-flex">
-      <label for="section">Stages</label>
-      <input name="section[0][title]" id="section" value="Item 1">
-      <input name="section[1][title]" id="section" value="Item 2">
-      <input name="section[2][title]" id="section" value="Item 3">
+      <div class="input-flex" id="stages-collection">
+        <label for="section1">Stages</label>
+        <input name="section[0][title]" id="section1" value="On Hold" inputnum="0">
+        <input name="section[1][title]" id="section1" value="In Production" inputnum="1">
+        <input name="section[2][title]" id="section2" value="Awaiting Approval" inputnum="2">
+      </div>
+      
+      <div>
+        <button type="button" class="btn-ghost btn-small" onclick="incrementStage(1)"><p class="centered">Add a Stage</p></button>
+        <button type="button" class="btn-ghost btn-small" onclick="incrementStage(-1)"><p class="centered">Remove a Stage</p></button>
+      </div>
+      
     </div>
 
    </fieldset>
   
 
-  
+  <script>
+    const input = document.getElementById("icon");
+    const image = document.getElementById("icon-label");
+
+    function changeIcon() {
+      image.setAttribute("src", input.value.replace("projects", "16px-grey"));
+    }
+
+    let sectionQty = 2;
+    const stagesCollection = document.getElementById("stages-collection");
+
+    function incrementStage(val) {
+      if (val === 1) {  // Add an Input
+        sectionQty++;
+        const newInput = document.createElement("input");
+        newInput.setAttribute("name", `section[${sectionQty}][title]`);
+        newInput.id = `section${sectionQty}`;
+        newInput.setAttribute("inputnum", sectionQty);
+
+        stagesCollection.appendChild(newInput);
+      }
+      if (val === -1) { // Remove an Input
+        if (sectionQty > 0) { // Keep at least 1
+          const inputs = document.querySelectorAll("input[inputnum]");
+          const lastInput = Array.from(inputs).find(input => input.getAttribute("inputnum") == sectionQty);
+          lastInput.remove();
+          sectionQty--;
+        }
+      }
+    }
+
+  </script>
 
   </form>
