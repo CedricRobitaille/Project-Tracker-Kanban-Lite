@@ -9,11 +9,22 @@ const fs = require("fs");
 
 const index = async (req, res) => {
   const boardCollection = await Board.find();
+  
+  let taskCollection = []
+
+  for (board of boardCollection) {
+    const taskList = await Task.find({ board: board._id });
+    taskCollection.push(taskList);
+  }
+  taskCollection = taskCollection.flat(); // 2d -> 1d array
+
   res.render("kanban/index.ejs", { 
     boardCollection, 
     currentPage: "Dashboard",
     pageIcon: "/icons/24px-grey/grid.svg",
     icons: fs.readdirSync("public/icons/16px-grey"),
+    pageTitle: `Dashboard - Flogrid`,
+    taskCollection,
   });
 }
 
@@ -45,6 +56,7 @@ const show = async (req, res) => {
     currentPage: board.title,
     pageIcon: board.icon,
     icons: fs.readdirSync("public/icons/16px-grey"),
+    pageTitle: `${board.title} - Flogrid`
   });
 }
 
@@ -62,7 +74,10 @@ const edit = async (req, res) => {
   const boardId = req.params.boardId;
   const board = await Board.findById(boardId);
   console.log(board)
-  res.render("kanban/edit.ejs", { board })
+  res.render("kanban/edit.ejs", { 
+    board,
+    pageTitle: `Edit - Dashboard - Flogrid`
+   })
 }
 
 // Create new board

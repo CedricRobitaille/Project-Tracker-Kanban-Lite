@@ -43,9 +43,9 @@
             priorities.forEach(priority => {
           %>
             <% if (priority.value === currentTask.priority) { %>
-              <option class="<%= priority.value %>-priority" value="<%= priority.value %>" selected ><%= priority.label %></option>
+              <option value="<%= priority.value %>" selected ><%= priority.label %></option>
             <% } else { %>
-              <option class="<%= priority.value %>-priority" value="<%= priority.value %>"><%= priority.label %></option>
+              <option value="<%= priority.value %>"><%= priority.label %></option>
             <% } %>
           <% }); %>
         </select>

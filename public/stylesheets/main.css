@@ -519,10 +519,16 @@ gap: .25rem;
 .task-table-row {
   width: 100%;
   display: grid;
-  grid-template-columns: auto 15rem 1fr 12.5rem auto;
+  grid-template-columns: auto 15rem 1fr 12.5rem 6rem;
   justify-content: center;
   align-items: center;
   height: 3rem;
+}
+
+.task-table-row {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .table-row-link:hover {
@@ -567,6 +573,12 @@ gap: .25rem;
   color: var(--grey);
 }
 
+.board-color {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 4px;
+  border: 2px solid;
+}
 
 
 

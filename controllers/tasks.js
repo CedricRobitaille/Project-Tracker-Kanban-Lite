@@ -33,6 +33,7 @@ const show = async (req, res) => {
     currentTask,
     currentPage: board.title,
     pageIcon: board.icon,
+    pageTitle: `${currentTask.title} - ${board.title} - Flogrid`
   });
 }
 
@@ -67,6 +68,7 @@ const showNewForm = async (req, res) => {
     currentPage: board.title,
     pageIcon: board.icon,
     section: req.query.section,
+    pageTitle: `New Task - ${board.title} - Flogrid`
    });
 }
 
