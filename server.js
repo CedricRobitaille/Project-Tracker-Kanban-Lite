@@ -51,6 +51,7 @@ app.delete('/kanban/:boardId', boardsCtrl.del); // [DEL] Delete existing board
 app.get('/kanban/:boardId/new', tasksCtrl.showNewForm); // [FORM] New Task Form
 app.get('/kanban/:boardId/:taskId', tasksCtrl.show); // [SHOW] Task Overview
 app.post('/kanban/:boardId/', tasksCtrl.create); // [POST] Create a new Task
+app.post('/kanban/:boardId/:taskId/comment', tasksCtrl.comment); // [POST] Create a new Task
 app.put('/kanban/:boardId/:taskId', tasksCtrl.update); // [PUT] Edit a Task (Clicks Save)
 app.delete('/kanban/:boardId/:taskId', tasksCtrl.del); // [DEL] Delete a Task
 

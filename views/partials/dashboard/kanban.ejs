@@ -19,15 +19,13 @@
         <% taskCollection[index].forEach(task=> { %>
           <a href="/kanban/<%= board._id %>/<%= task._id %>" class="panel-level-2 task-card">
             <div class="kanban-task-head">
+              <h3><%= task.title %></h3>
 
               <% if (task.isCompleted) { %>
                 <img src="/icons/20px-white/check-circle.svg" alt="">
               <% } else { %>
                 <img src="/icons/20px-grey/circle.svg" alt="">
               <% } %>
-
-              <h3><%= task.title %></h3>
-
             </div>
 
             <p class="<%= task.priority %>-priority priority"><%= task.priority %> Priority</p>
@@ -44,9 +42,6 @@
               </div>
             </div>
 
-            
-
-
           </a>
         <% }) %>
 
@@ -54,14 +49,5 @@
       
     </div>
   <% }) %>
-
-  <!-- <script>
-    // Enable horizontal scrolling on mWheel
-    const kanbanBoard = document.getElementById('kanban');
-    kanbanBoard.addEventListener('wheel', (event) => {
-      event.preventDefault();
-      kanbanBoard.scrollLeft += event.deltaY;
-    });
-  </script> -->
 
 </section>

@@ -72,7 +72,7 @@ main {
   height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, input, button, table, tr, td, thead, tbody, small, label, input, textarea {
+h1, h2, h3, h4, h5, h6, p, a, input, button, table, tr, td, thead, tbody, small, label, input, textarea, .flatpickr-calendar {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -662,7 +662,7 @@ gap: .25rem;
   background-color: var(--dark-1);
   border: 1.5px solid var(--dark-1-border);
   border-radius: 8px;
-
+  overflow-y: auto;
 }
 
 #editProject form {
@@ -779,9 +779,13 @@ gap: .25rem;
 
 .kanban-task-head {
   display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: .75rem;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 1rem;
+}
+
+.kanban-task-head img {
+  padding: .25rem 0
 }
 
 .kanban-task-head h3 {
@@ -816,6 +820,7 @@ gap: .25rem;
   align-items: center;
   gap: .25rem;
 }
+
 
 
 
@@ -863,9 +868,207 @@ gap: .25rem;
   width: 7.5rem;
 }
 
+.input-horizontal h5 {
+  width: 7.5rem;
+}
+
 .input-horizontal input, .input-horizontal select {
   width: fit-content;
 }
+
+/* EDIT TASK */
+
+.comment-form {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0 1fr) auto;
+  max-height: 20rem;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  overflow: auto;
+}
+
+.comment-list li {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: .5rem 0;
+  align-items: center;
+}
+
+.comment-pfp {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
+  background-color: var(--dark-3-border);
+}
+
+.comment-list .comment-contents {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.comment-list .comment-info {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.comment-item {
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+.comment-list .comment-info p {
+  font-size: .75rem;
+  font-weight: 400;
+  color: var(--dark-grey);
+}
+
+.comment-form h5 {
+  width: 100%;
+  padding-bottom: .75rem;
+  border-bottom: 2px solid var(--dark-3-border);
+}
+
+.comment-input {
+  padding: .75rem;
+  padding-right: 3rem;
+  height: fit-content;
+}
+
+.comment-form button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: .5rem;
+  right: .5rem;
+  padding: .4rem;
+  background-color: var(--accent-blue);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* CHECKBOX */
+
+.secondary-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.secondary-controls button {
+  padding: .6rem 1rem .75rem;
+  background-color: var(--dark-3);
+  border: none;
+  border-radius: 6px;
+  color: var(--grey);
+  cursor: pointer;
+}
+
+.is-completed-checkbox {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+  padding: .6rem 1rem .75rem;
+  background-color: var(--dark-3);
+  width: fit-content;
+  border-radius: 6px;
+  transition: .125s;
+}
+
+.is-completed-checkbox:hover {
+  background-color: var(--dark-3-border);
+}
+
+.is-completed-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.is-completed-checkbox .checkbox-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.is-completed-checkbox span {
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--grey);
+  letter-spacing: auto;
+  text-transform: none;
+}
+
+.is-completed-checkbox input[type="checkbox"]:checked + span {
+  color: var(--white);
+}
+
+/* DATE PICKER */
+
+#date-picker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  width: fit-content;
+}
+
+#date-image {
+  height: 1.75rem;
+  width: 1.75rem;
+  padding: .4rem;
+  background: var(--dark-3);
+  border-radius: 1rem;
+}
+
+#date-label {
+  color: var(--grey);
+  font-size: .85rem;
+  text-transform: none;
+  letter-spacing: auto;
+  font-weight: 500;
+  width: fit-content;
+}
+
+#date-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  /* needed for absolute input positioning */
+}
+
+#date-picker input {
+  background-color: transparent;
+  border: 0;
+  padding: .5rem .125rem;
+}
+
+#date-picker input:focus {
+  outline: none;
+}
+
+/* Hide the input but keep it clickable */
+input[type="date"] {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

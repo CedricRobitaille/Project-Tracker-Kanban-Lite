@@ -16,8 +16,28 @@
       </div>
 
       <div class="input-horizontal">
-        <label for="dueDate">Due Date</label>
-        <input type="date" name="dueDate" id="dueDate">
+        <h5>Due Date</h5>
+        <label id="date-picker">
+          <img src="/icons/16px-grey/calendar.svg" alt="date picker" id="date-image">
+          <input type="date" name="dueDate" id="due-date" placeholder="Select a date">
+        </label>
+        
+
+        <script>
+          const defaultDate = JSON.stringify(new Date()) %>;
+          const fp = flatpickr("#due-date", {
+            dateFormat: "Y-m-d", // original Format
+            altInput: true, // No alt inf
+            altFormat: "M j, Y",
+            allowInput: false,
+            defaultDate: defaultDate,
+          });
+          
+          const label = document.getElementById("date-picker");
+          label.addEventListener("click", () => {
+            fp.open();
+          })
+        </script>
       </div>
 
       <div class="input-horizontal">

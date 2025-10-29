@@ -31,7 +31,7 @@
       <% taskCollection.forEach(task => { %>
         <% const targetCollection = boardCollection.find(board => board._id.toString() == task.board.toString()) %>
         <li>
-          <a href="" class="task-table-row table-row-link">
+          <a href="/kanban/<%= task.board %>/<%= task._id %>" class="task-table-row table-row-link">
           <% tableColumns.forEach(col => { %>
             <% col = col.replace(" ", "") %>
             <% if (col === "color") { %>

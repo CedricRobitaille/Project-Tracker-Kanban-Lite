@@ -9,8 +9,32 @@
     
     <div class="secondary-controls">
       <!-- <input type="checkbox" name="isCompleted"> -->
-      <button type="submit" formaction="/kanban/<%= board._id %>/<%= currentTask._id %>?_method=DELETE">Delete</button>
+       <label class="is-completed-checkbox">
+        <% if (currentTask.isCompleted) { %>
+          <input type="checkbox" name="isCompleted" id="isCompleted" checked>
+          <span id="isCompletedText">Finished</span>
+          <img src="/icons/16px-white/check-circle.svg" alt="checkbox" class="checkbox-icon" id="isCompeledImg">
+        <% } else { %>
+          <input type="checkbox" name="isCompleted" id="isCompleted">
+          <span id="isCompletedText">Finish Task</span>
+          <img src="/icons/16px-grey/circle.svg" alt="checkbox" class="checkbox-icon" id="isCompeledImg">
+        <% } %>
+       </label>
+      <button type="submit" formaction="/kanban/<%= board._id %>/<%= currentTask._id %>?_method=DELETE">Delete Task</button>
     </div>
+
+
+    <script>
+      const checkbox = document.getElementById("isCompleted");
+      const image = document.getElementById("isCompeledImg");
+      const text = document.getElementById("isCompletedText");
+
+      checkbox.addEventListener("change", () => {
+        image.setAttribute("src", checkbox.checked ? "/icons/16px-white/check-circle.svg" : "/icons/16px-grey/circle.svg");
+        text.innerText = checkbox.checked ? "Finished" : "Finish Task"
+      });
+
+    </script>
 
 
     <textarea type="text" name="title" id="title" class="task-title-input" required><%= currentTask.title %></textarea>
@@ -23,13 +47,35 @@
       </div>
 
       <div class="input-horizontal">
-        <label for="dueDate">Due Date</label>
-         <!-- The date obj is an "Date" obj, which is not very parseable, so start by converting it to UTC time -->
-         <!-- Gets the due date as 2025-10-25T00:00:00.000Z, but we must remove all after the "T" -->
-         <!-- So, Split at the "T", and return the 1st elem of the new array -->
-        <% const providedDate = currentTask.dueDate ? currentTask.dueDate.toISOString().split("T")[0] : "" %>
-        <input type="date" name="dueDate" id="dueDate" value="<%= providedDate %>">
+        <h5>Due Date</h5>
+        <label id="date-picker">
+          <img src="/icons/16px-grey/calendar.svg" alt="date picker" id="date-image">
+          <input type="date" name="dueDate" id="due-date">
+        </label>
+      
+      
+        <script>
+          const fp = flatpickr("#due-date", {
+            utc: true,
+            dateFormat: "Y-m-d", // original Format
+            altInput: true, // No alt inf
+            altFormat: "M j, Y",
+            allowInput: false,
+            defaultDate: <%- currentTask.dueDate ? JSON.stringify(currentTask.dueDate.toISOString().split('T')[0]) : 'null' %>,
+          });
+
+          const label = document.getElementById("date-picker");
+          label.addEventListener("click", () => {
+            fp.open();
+          })
+        </script>
       </div>
+
+
+
+
+
+
 
       <div class="input-horizontal">
         <label for="priority">Priority</label>
@@ -75,14 +121,27 @@
 
   </form>
 
-  <form action="" class="comment-form">
+  <form action="/kanban/<%= board._id %>/<%= currentTask.id %>/comment" method="POST" class="comment-form">
     <h5>Comments</h5>
 
-    <ul class="commentsList">
-
+    <ul class="comment-list">
+      <% currentTask.comments.forEach(comment => {%>
+        <li>
+          <img src="" alt="" class="comment-pfp">
+          <div class="comment-contents">
+            <div class="comment-info">
+              <p>John Smith</p>
+              <% const commentTime = comment.time.toDateString() %>
+              <p><%= commentTime %></p>
+            </div>
+            <p class="comment-item"><%= comment.message %></p>
+          </div>
+        </li>
+      <% }); %>
     </ul>
 
-    <input type="text" placeholder="Add a comment..." class="comment-input">
+    <input type="text" name="message" placeholder="Add a comment..." class="comment-input" required>
+    <button type="submit" class=""><img src="/icons/16px-white/send.svg" alt=""></button>
   </form>
 
 </div>

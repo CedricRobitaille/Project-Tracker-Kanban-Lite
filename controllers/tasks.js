@@ -26,6 +26,8 @@ const show = async (req, res) => {
     taskCollection.push(orderedList)
   })
 
+  console.log("THIS THIS THIS:", currentTask.dueDate);
+
   res.render("tasks/index.ejs", {
     boardCollection,
     board,
@@ -95,6 +97,15 @@ const create = async (req, res) => {
 
 
 
+const comment = async (req, res) => {
+  const comment = { message: req.body.message }
+  const updatedTask = await Task.findByIdAndUpdate(req.params.taskId, 
+    { $push: { comments: comment } }, // Push to add a new comment array element
+    { new: true } // Tells mongoose it's a new entry
+  );
+  console.log("New Comment:", updatedTask)
+  res.redirect(`/kanban/${req.params.boardId}/${req.params.taskId}`)
+}
 
 
 
@@ -105,15 +116,18 @@ const update = async (req, res) => {
   const prevTask = await Task.findById(req.params.taskId);
   const board = await Board.findById(req.params.boardId);
 
-  // INCREMEMENT PROGRESS COUNTER ON COMPLETE
-  if (typeof req.body.isCompleted !== "undefined") { // On do this when a there's a change
-    if (req.body.isCompleted !== prevTask.isCompleted) {
-      if (isCompleted === true) {
-        board.progressCounter--;
-      } else {
-        board.progressCounter++;
-      }
+  // Dealing with the task state changes
+  const newState = req.body.isCompleted === "on";
+  if (newState !== prevTask.isCompleted) {
+    req.body.isCompleted = newState;
+
+    if (newState) {
+      board.progressCounter--; // task marked completed
+    } else {
+      board.progressCounter++; // task marked incomplete
     }
+  } else {
+    req.body.isCompleted = prevTask.isCompleted;
   }
 
   // CHANGE BOARD SECTION SIZE ON SECTION CHANGE
@@ -159,6 +173,7 @@ module.exports = {
   show,
   showNewForm,
   create,
+  comment,
   update,
   del,
 }
