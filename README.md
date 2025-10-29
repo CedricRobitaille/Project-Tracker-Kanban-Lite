@@ -27,16 +27,16 @@
 ## 0. Deployment Stages
 
 #### Board Management
-- [ ] Create New Boards
-- [ ] Read Boards, display all boards
-- [ ] Update Boards, change properties/people
-- [ ] Delete Boards, remove from user object
+- [x] Create New Boards
+- [x] Read Boards, display all boards
+- [x] Update Boards, change properties/people
+- [x] Delete Boards, remove from user object
 
 #### Task Management
-- [ ] Create New Tasks, assign to people
+- [x] Create New Tasks, assign to people
 - [ ] Read Tasks, display all tasks
 - [ ] Update Tasks, change subtasks/states
-- [ ] Delete Boards, remove from the board object
+- [ ] Delete Tasks, remove from the board object
 
 #### Level Ups
 - [ ] Landing Page - A Landing Page for new users
