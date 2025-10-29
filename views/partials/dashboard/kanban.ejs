@@ -12,13 +12,41 @@
       
       <div class="kanban-list">
 
-        <a href="/kanban/<%= board._id %>/new?section=<%= collection.title %>" class="panel-level-2 task-card">
+        <a href="/kanban/<%= board._id %>/new?section=<%= collection.title %>" class="panel-level-2 task-card-add">
           <img src="/icons/24px-grey/plus-circle.svg" alt="">
         </a>
 
         <% taskCollection[index].forEach(task=> { %>
           <a href="/kanban/<%= board._id %>/<%= task._id %>" class="panel-level-2 task-card">
-        
+            <div class="kanban-task-head">
+
+              <% if (task.isCompleted) { %>
+                <img src="/icons/20px-white/check-circle.svg" alt="">
+              <% } else { %>
+                <img src="/icons/20px-grey/circle.svg" alt="">
+              <% } %>
+
+              <h3><%= task.title %></h3>
+
+            </div>
+
+            <p class="<%= task.priority %>-priority priority"><%= task.priority %> Priority</p>
+
+            <div class="kanban-task-footer">
+              <% 
+                const dateFormatted = task.dueDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+              %>
+              <p><%= dateFormatted %></p>
+
+              <div class="kanban-task-comments">
+                <p><%= task.comments.length %></p>
+                <img src="/icons/16px-grey/message-circle.svg" alt="">
+              </div>
+            </div>
+
+            
+
+
           </a>
         <% }) %>
 
