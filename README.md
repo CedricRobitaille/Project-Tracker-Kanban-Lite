@@ -34,9 +34,9 @@
 
 #### Task Management
 - [x] Create New Tasks, assign to people
-- [ ] Read Tasks, display all tasks
-- [ ] Update Tasks, change subtasks/states
-- [ ] Delete Tasks, remove from the board object
+- [x] Read Tasks, display all tasks
+- [x] Update Tasks, change subtasks/states
+- [x] Delete Tasks, remove from the board object
 
 #### Level Ups
 - [ ] Landing Page - A Landing Page for new users
