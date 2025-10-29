@@ -31,12 +31,12 @@ const taskSchema = new mongoose.Schema({
     ref: "Board",
   },
   section: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     // Ref not needed since we already know the Board Schema
   },
   owner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "User",
     required: true,
   },
@@ -47,7 +47,7 @@ const taskSchema = new mongoose.Schema({
   priority: {
     type: String,
     enum: ["low", "medium", "high"],
-    default: "medium"
+    default: "medium",
   },
   comments: [commentSchema],
   startDate: Date,

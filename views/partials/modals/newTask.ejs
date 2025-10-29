@@ -1,7 +1,77 @@
-<form id="newTask" action="/kanban/<%= board._id %>" method="POST">
+<div id="newTask">
 
-  <!-- Controls -->
-  <%- include("../../partials/modals/partials/modalControls", { btnText1: "Close" , btnIcon1: null,
-    btnText2: "Save Changes" , btnIcon2: "/icons/20px-white/save.svg" }) %>
+  <form action="/kanban/<%= board._id %>" method="POST">
+  
+    <!-- Controls -->
+    <%- include("../../partials/modals/partials/modalControls", { btnText1: "Close" , btnIcon1: null,
+      btnText2: "Save Changes" , btnIcon2: "/icons/20px-white/save.svg" }) %>
+  
+    <textarea type="text" name="title" id="title" class="task-title-input" required>Task Title</textarea>
 
-</form>
+    <div class="input-cluster">
+
+      <div class="input-horizontal">
+        <label for="owner">Assignee</label>
+        <input type="text" name="owner" id="owner" value="John Macdonald">
+      </div>
+
+      <div class="input-horizontal">
+        <label for="dueDate">Due Date</label>
+        <input type="date" name="dueDate" id="dueDate">
+      </div>
+
+      <div class="input-horizontal">
+        <label for="priority">Priority</label>
+        <select type="text" name="priority" id="priority" value="John Macdonald">
+          <% 
+            const priorities = [
+              { value: "low", label: "Low Priority", color: "#FCD29F", selected: ""},
+              { value: "medium", label: "Medium Priority", color: "#A5DCFF", selected: "selected" },
+              { value: "high", label: "High Priority", color: "#FF9694", selected: "" },
+            ];
+            priorities.forEach(priority => {
+          %>
+            <% if (priority.selected === "selected") { %>
+              <option class="<%= priority.value %>-priority" value="<%= priority.value %>" selected ><%= priority.label %></option>
+            <% } else { %>
+              <option class="<%= priority.value %>-priority" value="<%= priority.value %>"><%= priority.label %></option>
+            <% } %>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="input-horizontal">
+        <label for="section">Stage</label>
+        <select type="text" name="section" id="section">
+          <% board.section.forEach(stage => { %>
+            <% const stageCleaned = stage.title.replaceAll(" ", "") %>
+            <% if (stage.title === section) { %>
+              <option value="<%= stageCleaned %>" selected><%= stage.title %></option>
+            <% } else { %>
+              <option value="<%= stageCleaned %>"><%= stage.title %></option>
+            <% } %>
+          <% }); %>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="input-flex">
+      <label for="description">Description</label>
+      <textarea name="description" id="description" placeholder="A short description..."></textarea>
+    </div>
+
+
+  </form>
+
+  <!-- <form action="" class="comment-form">
+    <h5>Comments</h5>
+
+    <ul class="commentsList">
+
+    </ul>
+
+    <input type="text" placeholder="Add a comment..." class="comment-input">
+  </form> -->
+
+</div>

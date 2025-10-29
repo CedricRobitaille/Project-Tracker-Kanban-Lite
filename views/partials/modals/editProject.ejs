@@ -81,7 +81,7 @@
         image.setAttribute("src", input.value.replace("projects", "16px-grey"));
       }
 
-      let sectionQty = 2;
+      let sectionQty = <%= board.section.length %>;
       const stagesCollection = document.getElementById("stages-collection");
 
       function incrementStage(val) {

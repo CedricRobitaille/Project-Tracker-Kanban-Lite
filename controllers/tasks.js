@@ -34,13 +34,17 @@ const showNewForm = async (req, res) => {
     board,
     taskCollection,
     currentPage: board.title,
-    pageIcon: board.icon
+    pageIcon: board.icon,
+    section: req.query.section,
    });
 }
 
 // Create a new Task
 const create = async (req, res) => {
-  res.send("Redirect to /kanban/:boardId/taskId")
+  req.body.board = req.params.boardId;
+  const newTask = await Task.create(req.body);
+  console.log("created new task:", newTask);
+  res.redirect(`/kanban/${req.params.boardId}`)
 }
 
 // Update/Save Task Changes

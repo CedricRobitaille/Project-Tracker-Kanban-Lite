@@ -667,14 +667,19 @@ gap: .25rem;
   width: 100%;
   max-width: 34rem;
 
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-rows: 1fr auto;
 
   padding: 1rem;
   background-color: var(--dark-1);
   border: 1.5px solid var(--dark-1-border);
   border-radius: 8px;
+}
+
+#newTask form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 
@@ -732,6 +737,9 @@ gap: .25rem;
 }
 
 .task-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   border-radius: 6px;
 }
@@ -740,4 +748,55 @@ gap: .25rem;
   background-color: var(--dark-3);
   border-color: var(--dark-3-border);
   cursor: pointer;
+}
+
+
+
+
+
+
+/* NEW TASK */
+
+.task-title-input {
+  background: none;
+  border: none;
+
+  height: fit-content;
+  padding: .5rem 0;
+  
+  font-size: 1.75rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+  field-sizing: content;
+  min-height: 1lh;
+  max-height: 3lh;
+  resize: none;
+}
+
+.task-title-input::placeholder {
+  color: var(--grey);
+}
+
+.task-title-input:focus {
+  outline: none;
+}
+
+.input-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.input-horizontal label {
+  width: 7.5rem;
+}
+
+.input-horizontal input, .input-horizontal select {
+  width: fit-content;
 }
