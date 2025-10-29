@@ -1,3 +1,12 @@
 <%- include("../partials/htmlHeader") %>
+<%- include("../partials/sideNav") %>
 
-<h1>Task overview</h1>
+
+<main>
+  <%- include("../partials/topNav") %>
+  <div id="view-split">
+    <%- include("../partials/dashboard/kanban.ejs") %>
+    <%- include("../partials/modals/editTask.ejs") %>
+  </div>
+  
+</main>

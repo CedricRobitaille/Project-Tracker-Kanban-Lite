@@ -32,13 +32,12 @@ const show = async (req, res) => {
   board.section.forEach(section => {
     const orderedList = []
     tasksFound.forEach(task => {
-      if (task.title === section.title) {
+      if (task.section === section.title.replace(" ", "")) {
         orderedList.push(task);
       }
     });
     taskCollection.push(orderedList)
   })
-  
   res.render(`kanban/show.ejs`, { 
     boardCollection,
     board,

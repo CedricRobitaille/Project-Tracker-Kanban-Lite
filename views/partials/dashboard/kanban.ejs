@@ -17,7 +17,7 @@
         </a>
 
         <% taskCollection[index].forEach(task=> { %>
-          <a href="/kanban/<%= board._id %>/new" class="panel-level-2 task-card">
+          <a href="/kanban/<%= board._id %>/<%= task._id %>" class="panel-level-2 task-card">
         
           </a>
         <% }) %>

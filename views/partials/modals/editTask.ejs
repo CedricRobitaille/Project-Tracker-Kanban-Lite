@@ -1,23 +1,34 @@
 <div id="newTask">
 
-  <form action="/kanban/<%= board._id %>" method="POST">
+  <form action="/kanban/<%= board._id %>/<%= currentTask.id %>?_method=PUT" method="POST">
   
     <!-- Controls -->
     <%- include("../../partials/modals/partials/modalControls", { btnText1: "Close" , btnIcon1: null,
       btnText2: "Save Changes" , btnIcon2: "/icons/20px-white/save.svg" }) %>
   
-    <textarea type="text" name="title" id="title" class="task-title-input" required>Task Title</textarea>
+    
+    <div class="secondary-controls">
+      <button></button>
+      <button type="submit" formaction="/kanban/<%= board._id %>/<%= currentTask._id %>?_method=DELETE">Delete</button>
+    </div>
+
+
+    <textarea type="text" name="title" id="title" class="task-title-input" required><%= currentTask.title %></textarea>
 
     <div class="input-cluster">
 
       <div class="input-horizontal">
         <label for="owner">Assignee</label>
-        <input type="text" name="owner" id="owner" value="John Macdonald">
+        <input type="text" name="owner" id="owner" value="<%= currentTask.owner %>">
       </div>
 
       <div class="input-horizontal">
         <label for="dueDate">Due Date</label>
-        <input type="date" name="dueDate" id="dueDate">
+         <!-- The date obj is an "Date" obj, which is not very parseable, so start by converting it to UTC time -->
+         <!-- Gets the due date as 2025-10-25T00:00:00.000Z, but we must remove all after the "T" -->
+         <!-- So, Split at the "T", and return the 1st elem of the new array -->
+        <% const providedDate = currentTask.dueDate ? currentTask.dueDate.toISOString().split("T")[0] : "" %>
+        <input type="date" name="dueDate" id="dueDate" value="<%= providedDate %>">
       </div>
 
       <div class="input-horizontal">
@@ -25,13 +36,13 @@
         <select type="text" name="priority" id="priority" value="John Macdonald">
           <% 
             const priorities = [
-              { value: "low", label: "Low Priority", color: "#FCD29F", selected: ""},
-              { value: "medium", label: "Medium Priority", color: "#A5DCFF", selected: "selected" },
-              { value: "high", label: "High Priority", color: "#FF9694", selected: "" },
+              { value: "low", label: "Low Priority", color: "#FCD29F" },
+              { value: "medium", label: "Medium Priority", color: "#A5DCFF" },
+              { value: "high", label: "High Priority", color: "#FF9694" },
             ];
             priorities.forEach(priority => {
           %>
-            <% if (priority.selected === "selected") { %>
+            <% if (priority.value === currentTask.priority) { %>
               <option class="<%= priority.value %>-priority" value="<%= priority.value %>" selected ><%= priority.label %></option>
             <% } else { %>
               <option class="<%= priority.value %>-priority" value="<%= priority.value %>"><%= priority.label %></option>
@@ -45,7 +56,7 @@
         <select type="text" name="section" id="section">
           <% board.section.forEach(stage => { %>
             <% const stageCleaned = stage.title.replaceAll(" ", "") %>
-            <% if (stage.title === section) { %>
+            <% if (stage.title.replaceAll(" ", "") === currentTask.section) { %>
               <option value="<%= stageCleaned %>" selected><%= stage.title %></option>
             <% } else { %>
               <option value="<%= stageCleaned %>"><%= stage.title %></option>
@@ -58,9 +69,20 @@
 
     <div class="input-flex">
       <label for="description">Description</label>
-      <textarea name="description" id="description" placeholder="A short description..."></textarea>
+      <textarea name="description" id="description"><%= currentTask.description %></textarea>
     </div>
 
 
   </form>
+
+  <form action="" class="comment-form">
+    <h5>Comments</h5>
+
+    <ul class="commentsList">
+
+    </ul>
+
+    <input type="text" placeholder="Add a comment..." class="comment-input">
+  </form>
+
 </div>
