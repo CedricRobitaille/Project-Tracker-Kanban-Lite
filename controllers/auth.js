@@ -4,7 +4,7 @@ const Board = require("../models/board.js")
 
 const bcrypt = require("bcrypt");
 
-//
+
 const index = async (req, res) => {
   res.render("index.ejs", {
     pageTitle: "Register - Flogrid"
@@ -40,6 +40,8 @@ const create = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   req.body.password = hashedPassword;
 
+  const user = await User.create(req.body);
+  console.log(user)
 
   res.redirect("/kanban");
 }
