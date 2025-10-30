@@ -1,0 +1,113 @@
+<%- include("../auth/partials/landingHtmlHeader") %>
+<%- include("../auth/partials/nav") %>
+
+<main class="v-center">
+
+  <form action="/" method="POST" class="v-center">
+    <section class="auth-form-header">
+      <h4>FLōGRID</h4>
+      <div>
+        <h1>Create a new Account</h1>
+        <p>Unleash your workflow potential right now.</p>
+      </div>
+    </section>
+    
+    <fieldset>
+      <div class="form-input-set">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" placeholder="example@gmail.com" id="email" required>
+        <img src="/icons/20px-grey/mail.svg" alt="email">
+      </div>
+
+      <div class="form-input-set">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="New Password" class="password" id="password" required>
+        <img src="/icons/20px-grey/lock.svg" alt="password">
+        <button type="button" onclick="toggleVisibility(event)"></button>
+      </div>
+
+      <div class="last-input-set">
+        <div class="form-input-set">
+          <label for="passwordConfirm">Confirm Password</label>
+          <input type="password" name="passwordConfirm" placeholder="New Password" class="password" id="passwordConfirm" required>
+          <img src="/icons/20px-grey/lock.svg" alt="password">
+          <button type="button" onclick="toggleVisibility(event)"></button>
+        </div>
+        
+        <div class="form-controls">
+          <button type="button" class="btn-ghost" onclick="generatePassword()">Generate Password</button>
+        </div>
+      </div>
+      
+    </fieldset>
+
+    <div class="auth-form-footer">
+      <button class="btn btn-accent w-100">
+        <p>Sign Up</p>
+        <img src="/icons/20px-white/log-in.svg" alt="Sign Up">
+      </button>
+      <p>Already have an account? <a href="/login" class="btn-ghost">Sign In</a></p>
+    </div>
+    
+  </form>
+
+  
+
+</main>
+
+<script>
+
+  function toggleVisibility(event) {
+    const inputSet = event.currentTarget.parentNode;
+    inputSet.classList.toggle("visibility");
+
+    const passwordInput = inputSet.querySelector("input");  // Input
+    const isVisible = passwordInput.type === "password";  // True/False if current type = password
+    passwordInput.type = isVisible ? "text" : "password"; // If visible, switch to invisible or reverse
+  }
+
+  function generatePassword() {
+    const inputs = document.querySelectorAll(".password");
+    
+    const lowerCaseLetters = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
+    const upperCaseLetters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
+    const specialCharacters = [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '~' ];
+   
+    const characters = []
+    for (let lower = 0; lower < 6; lower++) {
+      const randChar = parseInt(Math.random()*lowerCaseLetters.length);
+      const randSpot = parseInt(Math.random()*characters.length)
+
+      characters.splice(randSpot,0,lowerCaseLetters[randChar]);
+    }
+
+    for (let upper = 0; upper < 4; upper++) {
+      const randChar = parseInt(Math.random() * upperCaseLetters.length);
+      const randSpot = parseInt(Math.random() * characters.length)
+
+      characters.splice(randSpot, 0, upperCaseLetters[randChar]);
+    }
+
+    for (let nums = 0; nums < 3; nums++) {
+      const randChar = parseInt(Math.random() * 10);
+      const randSpot = parseInt(Math.random() * characters.length)
+
+      characters.splice(randSpot, 0, randChar);
+    }
+
+    for (let chars = 0; chars < 2; chars++) {
+      const randChar = parseInt(Math.random() * specialCharacters.length);
+      const randSpot = parseInt(Math.random() * characters.length)
+
+      characters.splice(randSpot, 0, specialCharacters[randChar]);
+    }
+
+    const password = characters.join("");
+    inputs.forEach(input => {
+      input.value = password;
+    })
+  }
+
+</script>
+
+<%- include("../auth/partials/footer") %>

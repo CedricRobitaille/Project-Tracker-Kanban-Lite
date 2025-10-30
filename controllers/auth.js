@@ -2,17 +2,25 @@ const User = require("../models/user.js");
 const Task = require("../models/task.js")
 const Board = require("../models/board.js")
 
+const bcrypt = require("bcrypt");
+
 //
 const index = async (req, res) => {
-  res.send("Landing Page!");
+  res.render("index.ejs", {
+    pageTitle: "Register - Flogrid"
+  })
 }
 
 const showNewForm = async (req, res) => {
-  res.send("Sign Up Page");
+  res.render("auth/new.ejs", {
+    pageTitle: "Register - Flogrid"
+  })
 }
 
 const showSigninForm = async (req, res) => {
-  res.send("Sign In Page");
+  res.render("auth/index.ejs", {
+    pageTitle: "Log In - Flogrid"
+  })
 }
 
 const show = async (req, res) => {
@@ -20,7 +28,20 @@ const show = async (req, res) => {
 }
 
 const create = async (req, res) => {
-  res.send("Redirect to /kanban");
+
+  const emailInDatabase = await User.findOne({ email: req.body.email });
+  if (emailInDatabase) {
+    return res.send("Email already in use.")
+  }
+  if (req.body.password !== req.body.passwordConfirm) {
+    return res.send("Password and Confirm Password must match.")
+  }
+
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+  req.body.password = hashedPassword;
+
+
+  res.redirect("/kanban");
 }
 
 const update = async (req, res) => {

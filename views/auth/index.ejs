@@ -1,0 +1,62 @@
+<%- include("../auth/partials/landingHtmlHeader") %>
+  <%- include("../auth/partials/nav") %>
+
+    <main class="v-center">
+
+      <form action="/" method="POST" class="v-center">
+        <section class="auth-form-header">
+          <h4>FLōGRID</h4>
+          <div>
+            <h1>Sign in to your Account</h1>
+            <p>Unleash your workflow potential right now.</p>
+          </div>
+        </section>
+
+        <fieldset>
+          <div class="form-input-set">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" placeholder="example@gmail.com" id="email" required>
+            <img src="/icons/20px-grey/mail.svg" alt="email">
+          </div>
+
+          <div class="last-input-set">
+            <div class="form-input-set">
+              <label for="password">Password</label>
+              <input type="password" name="password" placeholder="New Password" class="password" id="password" required>
+              <img src="/icons/20px-grey/lock.svg" alt="password">
+              <button type="button" onclick="toggleVisibility(event)"></button>
+            </div>
+
+            <div class="form-controls">
+              <a href="/join" class="btn-ghost">Forgot Password</a>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <div class="auth-form-footer">
+          <button class="btn btn-accent w-100">
+            <p>Sign Up</p>
+            <img src="/icons/20px-white/log-in.svg" alt="Sign Up">
+          </button>
+          <p>Already have an account? <a href="/login" class="btn-ghost">Sign In</a></p>
+        </div>
+
+      </form>
+
+
+
+    </main>
+
+    <script>
+      function toggleVisibility(event) {
+        const inputSet = event.currentTarget.parentNode;
+        inputSet.classList.toggle("visibility");
+
+        const passwordInput = inputSet.querySelector("input");  // Input
+        const isVisible = passwordInput.type === "password";  // True/False if current type = password
+        passwordInput.type = isVisible ? "text" : "password"; // If visible, switch to invisible or reverse
+      }
+    </script>
+
+<%- include("../auth/partials/footer") %>
