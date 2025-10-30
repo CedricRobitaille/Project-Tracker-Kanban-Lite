@@ -11,11 +11,17 @@ const index = async (req, res) => {
   })
 }
 
+
+
+
 const showNewForm = async (req, res) => {
   res.render("auth/new.ejs", {
     pageTitle: "Register - Flogrid"
   })
 }
+
+
+
 
 const showSigninForm = async (req, res) => {
   res.render("auth/index.ejs", {
@@ -23,9 +29,15 @@ const showSigninForm = async (req, res) => {
   })
 }
 
+
+
+
 const show = async (req, res) => {
   res.send("User Account Page");
 }
+
+
+
 
 const create = async (req, res) => {
 
@@ -46,9 +58,36 @@ const create = async (req, res) => {
   res.redirect("/kanban");
 }
 
+
+
+const login = async (req, res) => {
+
+  const userInDatabase = await User.findOne({ email: req.body.email });
+  if (!userInDatabase) {
+    return res.send("Login Failed. Email provided was not found.")
+  }
+
+  const validPassword = bcrypt.compareSync(
+    req.body.password,
+    userInDatabase.password
+  );
+  if (!validPassword) {
+    return res.send("Login Failed, Password was incorrect.")
+  };
+
+
+
+  res.redirect("/kanban");
+}
+
+
+
 const update = async (req, res) => {
   res.send("[Edited] User Account Page")
 }
+
+
+
 
 const del = async (req, res) => {
   res.send("Redirect to /")
@@ -62,6 +101,7 @@ module.exports = {
   showSigninForm,
   show,
   create,
+  login,
   update,
   del,
 }

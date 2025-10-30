@@ -61,6 +61,7 @@ app.delete('/kanban/:boardId/:taskId', tasksCtrl.del); // [DEL] Delete a Task
 app.get('/', authCtrl.index); // Landing Page
 app.get('/join', authCtrl.showNewForm); // Sign Up Page
 app.get('/login', authCtrl.showSigninForm); // Sign In Page
+app.post('/login', authCtrl.login);
 app.get('/:userId', authCtrl.show); // Account Page
 app.post('/', authCtrl.create); // [POST] Creates user account
 app.put('/:userId', authCtrl.update); // [PUT] Edits user details
