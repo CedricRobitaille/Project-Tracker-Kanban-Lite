@@ -55,7 +55,13 @@ const create = async (req, res) => {
   const user = await User.create(req.body);
   console.log(user)
 
-  res.redirect("/kanban");
+  req.session.user = {
+    username: user.username,
+  };
+
+  req.session.save(() => {
+    res.redirect("/kanban");
+  });
 }
 
 
@@ -78,14 +84,17 @@ const login = async (req, res) => {
     email: userInDatabase.email,
   }
 
-  res.redirect("/kanban");
+  req.session.save(() => {
+    res.redirect("/kanban");
+  })
 }
 
 
 
 const logout = async (req, res) => {
-  req.session.destroy();
-  res.redirect("/")
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
 }
 
 

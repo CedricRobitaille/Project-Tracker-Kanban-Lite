@@ -12,6 +12,9 @@ const methodOverride = require("method-override")
 const morgan = require("morgan");
 const path = require("path");
 const session = require('express-session');
+const MongoStore = require("connect-mongo");
+const isSignedIn = require("./middleware/is-signed-in.js");
+const passUserToView = require("./middleware/pass-user-to-view.js");
 
 
 // Connection to the DB
@@ -30,8 +33,15 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
   })
 );
+// This middleware ensures that every route will:
+// - All templates will have access to `user` session
+// - No need to `req.session.user` at every route
+app.use(passUserToView);
 
 
 // Boards Controller
@@ -45,23 +55,23 @@ const tasksCtrl = require("./controllers/tasks.js")
 // ======================
 
 // Board Views
-app.get('/kanban', boardsCtrl.index); // [SHOW] Board overview
-app.get('/kanban/new', boardsCtrl.showNewForm); // [FORM] New inner board form
-app.get('/kanban/:boardId', boardsCtrl.show); // [SHOW] Board inner
-app.post('/kanban', boardsCtrl.create); // [POST] Create a new board
-app.get('/kanban/:boardId/edit', boardsCtrl.edit); // [FORM] Edit existing board
-app.put('/kanban/:boardId', boardsCtrl.update); // [PUT] Edit existing board
-app.delete('/kanban/:boardId', boardsCtrl.del); // [DEL] Delete existing board
+app.get('/kanban', isSignedIn, boardsCtrl.index); // [SHOW] Board overview
+app.get('/kanban/new', isSignedIn, boardsCtrl.showNewForm); // [FORM] New inner board form
+app.get('/kanban/:boardId', isSignedIn, boardsCtrl.show); // [SHOW] Board inner
+app.post('/kanban', isSignedIn, boardsCtrl.create); // [POST] Create a new board
+app.get('/kanban/:boardId/edit', isSignedIn, boardsCtrl.edit); // [FORM] Edit existing board
+app.put('/kanban/:boardId', isSignedIn, boardsCtrl.update); // [PUT] Edit existing board
+app.delete('/kanban/:boardId', isSignedIn, boardsCtrl.del); // [DEL] Delete existing board
 
 
 
 // Task Views
-app.get('/kanban/:boardId/new', tasksCtrl.showNewForm); // [FORM] New Task Form
-app.get('/kanban/:boardId/:taskId', tasksCtrl.show); // [SHOW] Task Overview
-app.post('/kanban/:boardId/', tasksCtrl.create); // [POST] Create a new Task
-app.post('/kanban/:boardId/:taskId/comment', tasksCtrl.comment); // [POST] Create a new Task
-app.put('/kanban/:boardId/:taskId', tasksCtrl.update); // [PUT] Edit a Task (Clicks Save)
-app.delete('/kanban/:boardId/:taskId', tasksCtrl.del); // [DEL] Delete a Task
+app.get('/kanban/:boardId/new', isSignedIn, tasksCtrl.showNewForm); // [FORM] New Task Form
+app.get('/kanban/:boardId/:taskId', isSignedIn, tasksCtrl.show); // [SHOW] Task Overview
+app.post('/kanban/:boardId/', isSignedIn, tasksCtrl.create); // [POST] Create a new Task
+app.post('/kanban/:boardId/:taskId/comment', isSignedIn, tasksCtrl.comment); // [POST] Create a new Task
+app.put('/kanban/:boardId/:taskId', isSignedIn, tasksCtrl.update); // [PUT] Edit a Task (Clicks Save)
+app.delete('/kanban/:boardId/:taskId', isSignedIn, tasksCtrl.del); // [DEL] Delete a Task
 
 
 
