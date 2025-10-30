@@ -144,9 +144,9 @@ textarea {
 
 #view-split {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
 }
 
 #main-view {
@@ -1070,6 +1070,7 @@ input[type="date"] {
   display: flex;
   flex-direction: column;
   gap: .25rem;
+  margin-bottom: 1rem;
 }
 
 .greeting p {
