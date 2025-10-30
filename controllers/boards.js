@@ -19,7 +19,7 @@ const index = async (req, res) => {
   }
   taskCollection = taskCollection.flat(); // 2d -> 1d array
 
-  
+  console.log(user)  
 
   res.render("kanban/index.ejs", { 
     boardCollection, 

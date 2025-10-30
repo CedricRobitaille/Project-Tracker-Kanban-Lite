@@ -41,8 +41,8 @@ const show = async (req, res) => {
 
 const create = async (req, res) => {
 
-  const emailInDatabase = await User.findOne({ email: req.body.email });
-  if (emailInDatabase) {
+  const userInDatabase = await User.findOne({ email: req.body.email });
+  if (userInDatabase) {
     return res.send("Email already in use.")
   }
   if (req.body.password !== req.body.passwordConfirm) {
@@ -56,8 +56,8 @@ const create = async (req, res) => {
   console.log(user)
 
   req.session.user = {
-    username: user.username,
-  };
+    email: req.body.email,
+  }
 
   req.session.save(() => {
     res.redirect("/kanban");

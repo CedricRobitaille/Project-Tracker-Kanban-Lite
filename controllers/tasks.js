@@ -154,10 +154,14 @@ const update = async (req, res) => {
 const del = async (req, res) => {
   const prevTask = await Task.findById(req.params.taskId);
   const board = await Board.findById(req.params.boardId); // Get the board by ID
-  board.progressCounter -= 1; // Increment in-progress by 1
+  
 
   const section = board.section.find(sec => sec.title.replaceAll(" ", "") === prevTask.section); // Get the section (on the board) that the task belongs to
+  if (!prevTask.isCompleted) {
+    board.progressCounter -= 1; // Increment in-progress by 1
+  }
   section.size -= 1; // Increment the section's size by 1
+  
 
   await board.save(); // Save all changes to the board
 
