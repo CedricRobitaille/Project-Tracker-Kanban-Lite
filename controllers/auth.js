@@ -61,7 +61,6 @@ const create = async (req, res) => {
 
 
 const login = async (req, res) => {
-
   const userInDatabase = await User.findOne({ email: req.body.email });
   if (!userInDatabase) {
     return res.send("Login Failed. Email provided was not found.")
@@ -75,9 +74,18 @@ const login = async (req, res) => {
     return res.send("Login Failed, Password was incorrect.")
   };
 
-
+  req.session.user = {
+    email: userInDatabase.email,
+  }
 
   res.redirect("/kanban");
+}
+
+
+
+const logout = async (req, res) => {
+  req.session.destroy();
+  res.redirect("/")
 }
 
 
@@ -102,6 +110,7 @@ module.exports = {
   show,
   create,
   login,
+  logout,
   update,
   del,
 }

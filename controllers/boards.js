@@ -9,7 +9,8 @@ const fs = require("fs");
 
 const index = async (req, res) => {
   const boardCollection = await Board.find();
-  
+  let user = await User.find({ email: req.session.user.email });
+  user = user.flat();
   let taskCollection = []
 
   for (board of boardCollection) {
@@ -18,6 +19,8 @@ const index = async (req, res) => {
   }
   taskCollection = taskCollection.flat(); // 2d -> 1d array
 
+  
+
   res.render("kanban/index.ejs", { 
     boardCollection, 
     currentPage: "Dashboard",
@@ -25,6 +28,7 @@ const index = async (req, res) => {
     icons: fs.readdirSync("public/icons/16px-grey"),
     pageTitle: `Dashboard - Flogrid`,
     taskCollection,
+    currentUser: user,
   });
 }
 

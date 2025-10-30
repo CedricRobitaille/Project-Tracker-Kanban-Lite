@@ -2,8 +2,22 @@
 <%- include("../partials/sideNav") %>
 <main>
   <%- include("../partials/topNav") %>
+
+
+  <% const user = currentUser[0] %>
   <div id="view-split">
+
+    <div class="greeting">
+      <% const formattedDate = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }); %>
+        <p class="date"><%= formattedDate %></p>
+        <h2>Good Evening, <%= user.fullName.split(" ")[0] %>!</h2>
+      </div>
+
+
     <section id="main-view">
+
+      
+
       <%- include("../partials/dashboard/projects") %> 
       <%- include("../partials/dashboard/tasks") %>
     </section>

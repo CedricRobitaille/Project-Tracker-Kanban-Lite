@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override")
 const morgan = require("morgan");
 const path = require("path");
+const session = require('express-session');
 
 
 // Connection to the DB
@@ -24,6 +25,13 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")))
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 
 // Boards Controller
@@ -61,6 +69,7 @@ app.delete('/kanban/:boardId/:taskId', tasksCtrl.del); // [DEL] Delete a Task
 app.get('/', authCtrl.index); // Landing Page
 app.get('/join', authCtrl.showNewForm); // Sign Up Page
 app.get('/login', authCtrl.showSigninForm); // Sign In Page
+app.get('/logout', authCtrl.logout);
 app.post('/login', authCtrl.login);
 app.get('/:userId', authCtrl.show); // Account Page
 app.post('/', authCtrl.create); // [POST] Creates user account

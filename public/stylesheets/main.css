@@ -144,8 +144,9 @@ textarea {
 
 #view-split {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 #main-view {
@@ -1063,8 +1064,23 @@ input[type="date"] {
 
 
 
+/* EXTRA */
 
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
 
+.greeting p {
+  font-weight: 500;
+  color: var(--dark-grey);
+}
+
+.greeting h2 {
+  font-weight: 600;
+  font-size: 2rem;
+}
 
 
 
