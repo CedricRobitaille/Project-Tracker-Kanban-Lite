@@ -54,7 +54,9 @@
               %>
               <p class="table-weak"><%= month %> <%= day %></p>
 
-            <% } else { %>
+            <% } else if (col === "description") { %>
+              <p class="table-weak"><%= task.description %></p>
+            <% } else if (col === "collection") { %>
               <p class="table-weak"><%= targetCollection.title %></p>
             <% } %>
           <% }) %>

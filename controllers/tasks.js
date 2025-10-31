@@ -8,9 +8,10 @@ const Board = require("../models/board.js");
 // Show Page
 const show = async (req, res) => {
   let user = await User.findOne({ email: req.session.user.email });
+  
 
   const boardId = req.params.boardId
-  const boardCollection = await Board.find();
+  const boardCollection = await Board.find({ owner: user._id });
   const board = await Board.findById(boardId);
 
   const currentTask = await Task.findById(req.params.taskId)
@@ -26,7 +27,14 @@ const show = async (req, res) => {
       }
     });
     taskCollection.push(orderedList)
-  })
+  });
+
+  const commentUsers = []
+  for (const comment of currentTask.comments) {
+    const user = await User.findById(comment.user);
+    commentUsers.push(user);
+  };
+
 
   res.render("tasks/index.ejs", {
     boardCollection,
@@ -37,6 +45,7 @@ const show = async (req, res) => {
     pageIcon: board.icon,
     pageTitle: `${currentTask.title} - ${board.title} - Flogrid`,
     currentUser: user,
+    commentUsers,
   });
 }
 
@@ -49,7 +58,7 @@ const showNewForm = async (req, res) => {
   let user = await User.findOne({ email: req.session.user.email });
 
   const boardId = req.params.boardId
-  const boardCollection = await Board.find();
+  const boardCollection = await Board.find({ owner: user._id });
   const board = await Board.findById(boardId);
 
   const taskCollection = [];
@@ -104,7 +113,8 @@ const create = async (req, res) => {
 
 const comment = async (req, res) => {
   let user = await User.findOne({ email: req.session.user.email });
-  const comment = { message: req.body.message }
+  const comment = { message: req.body.message, user: user._id }
+
   const updatedTask = await Task.findByIdAndUpdate(req.params.taskId, 
     { $push: { comments: comment } }, // Push to add a new comment array element
     { new: true } // Tells mongoose it's a new entry

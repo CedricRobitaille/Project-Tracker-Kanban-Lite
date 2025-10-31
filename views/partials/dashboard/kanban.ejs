@@ -31,6 +31,7 @@
             <p class="<%= task.priority %>-priority priority"><%= task.priority %> Priority</p>
 
             <div class="kanban-task-footer">
+              <img src="<%= currentUser.profilePicture %>" alt="<%= currentUser.nickname %>" class="kanban-pfp">
               <% 
                 const dateFormatted = task.dueDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
               %>

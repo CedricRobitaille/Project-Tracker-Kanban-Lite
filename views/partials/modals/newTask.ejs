@@ -11,8 +11,8 @@
     <div class="input-cluster">
 
       <div class="input-horizontal">
-        <label for="owner">Assignee</label>
-        <input type="text" name="owner" id="owner" value="John Macdonald">
+        <label for="owner">Owner</label>
+        <input type="text" name="owner" id="owner" value="<%= currentUser.fullName %>">
       </div>
 
       <div class="input-horizontal">
@@ -42,7 +42,7 @@
 
       <div class="input-horizontal">
         <label for="priority">Priority</label>
-        <select type="text" name="priority" id="priority" value="John Macdonald">
+        <select type="text" name="priority" id="priority">
           <% 
             const priorities = [
               { value: "low", label: "Low Priority", color: "#FCD29F", selected: ""},

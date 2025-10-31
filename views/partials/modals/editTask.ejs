@@ -42,7 +42,7 @@
     <div class="input-cluster">
 
       <div class="input-horizontal">
-        <label for="owner">Assignee</label>
+        <label for="owner">Owner</label>
         <input type="text" name="owner" id="owner" value="<%= currentTask.owner %>">
       </div>
 
@@ -125,12 +125,12 @@
     <h5>Comments</h5>
 
     <ul class="comment-list">
-      <% currentTask.comments.forEach(comment => {%>
+      <% currentTask.comments.forEach((comment, index) => {%>
         <li>
-          <img src="" alt="" class="comment-pfp">
+          <img src="<%= commentUsers[index].profilePicture %>" alt="" class="comment-pfp">
           <div class="comment-contents">
             <div class="comment-info">
-              <p>John Smith</p>
+              <p><%= commentUsers[index].nickname %></p>
               <% const commentTime = comment.time.toDateString() %>
               <p><%= commentTime %></p>
             </div>
