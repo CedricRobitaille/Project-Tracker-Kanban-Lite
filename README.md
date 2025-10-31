@@ -3,6 +3,7 @@
 
 > A compact, MEN (MongoDB + Express + Node + EJS) Project Tracker with Boards, Tasks, Attachments, and Session auth. Designed to be finishable as a 1–2 controller capstone but includes an authentication controller and Web API integration points for realistic hiring-relevant scope.
 
+**[Visit Live Site](http://18.221.96.129:3001/)**
 
 <br>
 
