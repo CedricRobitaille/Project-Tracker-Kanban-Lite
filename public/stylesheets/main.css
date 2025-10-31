@@ -154,6 +154,8 @@ textarea {
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+  max-height: calc(100vh - 5.75rem);
+  overflow: hidden;
 }
 
 .centered {
@@ -381,6 +383,8 @@ nav li a p {
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem 1.25rem;
+  overflow: hidden;
+  flex: 0 0 auto;
 }
 
 .panel-level-2 {
@@ -503,7 +507,7 @@ gap: .25rem;
 /* Dashboard - My Tasks */
 
 .fill-height {
-  height: 100%;
+  flex: 1 1 auto;
 }
 
 .collection-color {
@@ -514,7 +518,10 @@ gap: .25rem;
 }
 
 .task-table {
-  
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .task-table-row {
@@ -530,6 +537,11 @@ gap: .25rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.task-table ul {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .table-row-link:hover {
