@@ -39,10 +39,10 @@
 - [x] Delete Tasks, remove from the board object
 
 #### Level Ups
-- [ ] Landing Page - A Landing Page for new users
+- [x] Landing Page - A Landing Page for new users
 - [ ] API - Access board/task information from an API Call
-- [ ] Authentication - Login + Register Pages, Restricted page access
-- [ ] Account Administration - Manage team members, and assign people to tasks
+- [x] Authentication - Login + Register Pages, Restricted page access
+- [x] Account Administration - Manage team members, and assign people to tasks
 
 <br>
 
@@ -296,20 +296,28 @@ app.use(
 ## 9. Wireframes
 
 #### Landing Page
-<img src="https://i.imgur.com/z97B7Z2.png" width="300">
+<img src="https://i.imgur.com/CUDfMwT.png" width="1920">
 
 #### Auth Page
-<img src="https://i.imgur.com/RvL8Bue.png" width="300">
+<img src="https://i.imgur.com/MtJbVzD.png" width="1920">
 
-#### Board Management
-<img src="https://i.imgur.com/ymOJ8je.png" width="300">
+#### Dashboard
+<img src="https://i.imgur.com/TiGkpOd.png" width="1920">
 
-#### Board Inner
-<img src="https://i.imgur.com/GIKvJks.png" width="300">
+#### New Project Form
+<img src="https://i.imgur.com/26NSgaI.png" width="1920">
 
-#### Task
-<img src="https://i.imgur.com/7UZslIR.png" width="300">
+#### Kanban Board
+<img src="https://i.imgur.com/lh6Mp3W.png" width="1920">
 
+#### Edit Task
+<img src="https://i.imgur.com/8i4YXuf.png" width="1920">
+
+#### Timeline
+<img src="https://i.imgur.com/h1bFJ3p.png" width="1920">
+
+#### Account Form
+<img src="https://i.imgur.com/BfQpgSw.png" width="1920">
 
 
 
