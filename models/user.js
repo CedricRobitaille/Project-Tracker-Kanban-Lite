@@ -7,9 +7,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  nickName: {
+  nickname: {
     type: String,
     trim: true,
+    default: this.fullName
   },
   email: {
     type: String,
@@ -25,8 +26,12 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
   },
-  profilePicture: String,
+  profilePicture: {
+    type: String,
+    default: "/uploads/default-pfp.jpg"
+  },
   jobTitle: String,
+  team: String,
   phoneNumber: Number,
 }, { timestamps: true });
 

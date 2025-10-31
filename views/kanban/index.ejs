@@ -2,9 +2,6 @@
 <%- include("../partials/sideNav") %>
 <main>
   <%- include("../partials/topNav") %>
-
-
-  <% const user = currentUser[0] %>
   <div id="view-split">
 
     <section id="main-view">
@@ -12,7 +9,7 @@
       <div class="greeting">
         <% const formattedDate = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }); %>
         <p class="date"><%= formattedDate %></p>
-        <h2>Good Evening, <%= user.fullName.split(" ")[0] %>!</h2>
+        <h2>Good Evening, <%= currentUser.fullName.split(" ")[0] %>!</h2>
       </div>
 
       <%- include("../partials/dashboard/projects") %> 
@@ -20,6 +17,7 @@
     </section>
     
     <%- include("../partials/modals/newProject") %>
+    <%- include("../partials/modals/account") %>
     
   </div>
   

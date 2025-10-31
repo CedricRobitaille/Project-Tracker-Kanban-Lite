@@ -15,7 +15,7 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const isSignedIn = require("./middleware/is-signed-in.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
-
+const upload = require("./config/multer.js");
 
 // Connection to the DB
 mongoose.connect(process.env.MONGODB_URI);
@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")))
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -83,9 +84,8 @@ app.get('/logout', authCtrl.logout);
 app.post('/login', authCtrl.login);
 app.get('/:userId', authCtrl.show); // Account Page
 app.post('/', authCtrl.create); // [POST] Creates user account
-app.put('/:userId', authCtrl.update); // [PUT] Edits user details
+app.put('/:userId', upload.single("profilePicture"), authCtrl.update); // [PUT] Edits user details
 app.delete('/:userId', authCtrl.del); // [DELETE] Removes user
-
 
 
 

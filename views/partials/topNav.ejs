@@ -6,16 +6,21 @@
   <% if (currentPage !=="Dashboard" && currentPage !=="Timeline" ) { %>
     <button type="button" class="btn-ghost" onclick="editProject()"><img src="/icons/24px-grey/menu.svg" alt=""></button>
     <% } %>
-  <div class="btn-light">
+  <button class="btn-light" type="button" onclick="openModal()">
     <img src="/icons/20px-white/user.svg" alt="">
     <p>My Account</p>
-  </div>
+  </button>
 </div>
 
 
 <script>
   function editProject() {
     const modal = document.getElementById("editProject");
-    modal.classList.remove("modal-hidden");
+    modal.classList.toggle("modal-hidden");
+  }
+
+  const openModal = () => {
+    const modal = document.getElementById("account-modal");
+    modal.classList.toggle("modal-hidden");
   }
 </script>

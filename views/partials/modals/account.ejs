@@ -1,0 +1,88 @@
+<div id="account-modal" class="modal-hidden modal-element">
+
+  <form action="/<%= currentUser._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+    <!-- Controls -->
+    <%- include("../../partials/modals/partials/modalControls", { btnText1: "Minimize" , btnIcon1: null,
+      btnText2: "Save Changes" , btnIcon2: "/icons/20px-white/save.svg" }) %>
+
+    <div class="form-body">
+      <div class="account-form-header">
+        <label for="profile-picture" id="pfp-label" file="<%= currentUser.profilePicture %>"> </label>
+        <input type="file" name="profilePicture" id="profile-picture" accept="image/png, image/jpeg, image/jpg">
+        <div class="input-flex">
+          <h2><%= currentUser.fullName %></h2>
+          <p><%= currentUser.email %></p>
+        </div>
+      </div>
+      
+      <script>
+        const pfpInput = document.getElementById("profile-picture");
+        const imagePreview = document.getElementById("pfp-label");
+        if (imagePreview.hasAttribute("file")) {
+          const file = imagePreview.getAttribute("file");
+          imagePreview.style.backgroundImage = `url(${file})`;
+        }
+
+        const updateImageDisplay = () => {
+          const imageUrl = URL.createObjectURL(pfpInput.files[0])
+          imagePreview.style.backgroundImage = `url(${imageUrl})`;
+        }
+
+        // Change event found in (https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file)
+        pfpInput.addEventListener("change", updateImageDisplay)
+      </script>
+      
+      <fieldset>
+        <%- include("../../partials/modals/partials/sectionIntro", { title: "Public Profile" ,
+          description: "This will be displayed on your profile." }) %>
+          <div class="input-split">
+            <div class="input-flex">
+              <label for="fullName">Full Name</label>
+              <input type="text" name="fullName" id="fullName" value="<%= currentUser.fullName %>" required>
+            </div>
+            <div class="input-flex">
+              <label for="nickname">Nickname</label>
+              <input type="text" name="nickname" id="nickname" value="<%= currentUser.nickname %>">
+            </div>
+            <div class="input-flex">
+              <label for="team">Team</label>
+              <input type="text" name="team" id="team" value="<%= currentUser.team %>">
+            </div>
+            <div class="input-flex">
+              <label for="jobTitle">Job Title</label>
+              <input type="text" name="jobTitle" id="jobTitle" value="<%= currentUser.jobTitle %>">
+            </div>
+          </div>
+      </fieldset>
+      
+      
+      
+      <fieldset>
+        <%- include("../../partials/modals/partials/sectionIntro", { title: "Private Information" ,
+          description: "This information can only be accessed by you." }) %>
+      
+          <div class="input-split">
+            <div class="input-flex">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="phone" name="phoneNumber" id="phoneNumber" value="<%= currentUser.phoneNumber %>">
+            </div>
+            <div class="input-flex">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" value="<%= currentUser.email %>">
+            </div>
+            <div class="input-flex">
+              <label for="password">Change Password</label>
+              <input type="password" name="password" id="password" placeholder="New Password">
+            </div>
+            <div class="input-flex">
+              <label for="passwordConfirm">Confirm Password</label>
+              <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirm Password">
+            </div>
+          </div>
+      </fieldset>
+    </div>
+    
+  </form>
+
+</div>

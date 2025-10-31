@@ -3,14 +3,15 @@ const Task = require("../models/task.js")
 const Board = require("../models/board.js")
 const fs = require("fs");
 
+
 // Kanban Root
 // GET
 // /
-
 const index = async (req, res) => {
-  const boardCollection = await Board.find();
-  let user = await User.find({ email: req.session.user.email });
-  user = user.flat();
+  let user = await User.findOne({ email: req.session.user.email });
+
+  const boardCollection = await Board.find({ owner: user._id });
+
   let taskCollection = []
 
   for (board of boardCollection) {
@@ -18,8 +19,6 @@ const index = async (req, res) => {
     taskCollection.push(taskList);
   }
   taskCollection = taskCollection.flat(); // 2d -> 1d array
-
-  console.log(user)  
 
   res.render("kanban/index.ejs", { 
     boardCollection, 
@@ -36,8 +35,10 @@ const index = async (req, res) => {
 // GET
 // /:boardId"
 const show = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
+
   const boardId = req.params.boardId
-  const boardCollection = await Board.find();
+  const boardCollection = await Board.find({ owner: user._id });
   const board = await Board.findById(boardId);
 
   const taskCollection = [];
@@ -60,7 +61,8 @@ const show = async (req, res) => {
     currentPage: board.title,
     pageIcon: board.icon,
     icons: fs.readdirSync("public/icons/16px-grey"),
-    pageTitle: `${board.title} - Flogrid`
+    pageTitle: `${board.title} - Flogrid`,
+    currentUser: user,
   });
 }
 
@@ -80,7 +82,8 @@ const edit = async (req, res) => {
   console.log(board)
   res.render("kanban/edit.ejs", { 
     board,
-    pageTitle: `Edit - Dashboard - Flogrid`
+    pageTitle: `Edit - Dashboard - Flogrid`,
+    currentUser: user,
    })
 }
 
@@ -88,6 +91,9 @@ const edit = async (req, res) => {
 // POST
 // "/"
 const create = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
+  req.body.owner = user._id;
+
   const board = await Board.create(req.body);
   res.redirect(`/kanban/${board._id}`);
 }

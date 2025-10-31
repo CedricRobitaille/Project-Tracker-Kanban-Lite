@@ -32,11 +32,13 @@
     function clickEvent(event) {
       const action = event.currentTarget.id;
       if (action === "close") {
-        const modal = document.querySelector(".modal-element")
-        modal.classList.toggle("modal-hidden");
-      } else {
-
+        console.log("YES")
+        const modal = document.querySelectorAll(".modal-element");
+        modal.forEach(elem => {
+          elem.classList.add("modal-hidden");
+        })
       }
+      
     }
     
   </script>

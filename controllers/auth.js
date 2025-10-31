@@ -100,7 +100,11 @@ const logout = async (req, res) => {
 
 
 const update = async (req, res) => {
-  res.send("[Edited] User Account Page")
+  const pfp = req.file ? `/uploads/${req.file.filename}` : null;
+  req.body.profilePicture = pfp;
+
+  console.log("PUT BODY:",req.body)
+  res.redirect("/kanban")
 }
 
 

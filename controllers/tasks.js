@@ -7,6 +7,8 @@ const Board = require("../models/board.js");
 
 // Show Page
 const show = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
+
   const boardId = req.params.boardId
   const boardCollection = await Board.find();
   const board = await Board.findById(boardId);
@@ -26,8 +28,6 @@ const show = async (req, res) => {
     taskCollection.push(orderedList)
   })
 
-  console.log("THIS THIS THIS:", currentTask.dueDate);
-
   res.render("tasks/index.ejs", {
     boardCollection,
     board,
@@ -35,7 +35,8 @@ const show = async (req, res) => {
     currentTask,
     currentPage: board.title,
     pageIcon: board.icon,
-    pageTitle: `${currentTask.title} - ${board.title} - Flogrid`
+    pageTitle: `${currentTask.title} - ${board.title} - Flogrid`,
+    currentUser: user,
   });
 }
 
@@ -45,6 +46,8 @@ const show = async (req, res) => {
 
 // Form to create a new Task
 const showNewForm = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
+
   const boardId = req.params.boardId
   const boardCollection = await Board.find();
   const board = await Board.findById(boardId);
@@ -70,7 +73,8 @@ const showNewForm = async (req, res) => {
     currentPage: board.title,
     pageIcon: board.icon,
     section: req.query.section,
-    pageTitle: `New Task - ${board.title} - Flogrid`
+    pageTitle: `New Task - ${board.title} - Flogrid`,
+    currentUser: user,
    });
 }
 
@@ -81,6 +85,7 @@ const showNewForm = async (req, res) => {
 
 // Create a new Task
 const create = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
   req.body.board = req.params.boardId;
 
   const board = await Board.findById(req.params.boardId); // Get the board by ID
@@ -98,6 +103,7 @@ const create = async (req, res) => {
 
 
 const comment = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
   const comment = { message: req.body.message }
   const updatedTask = await Task.findByIdAndUpdate(req.params.taskId, 
     { $push: { comments: comment } }, // Push to add a new comment array element
@@ -111,6 +117,7 @@ const comment = async (req, res) => {
 
 // Update/Save Task Changes
 const update = async (req, res) => {
+  let user = await User.findOne({ email: req.session.user.email });
   req.body.board = req.params.boardId;
   
   const prevTask = await Task.findById(req.params.taskId);
